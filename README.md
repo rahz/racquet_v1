@@ -1,16 +1,25 @@
-# racquet_v1
+# Racquet
 
-A new Flutter project.
+A Badminton Database Management System.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+Streamlined CRUD front-end and back-end system for club presidents to manage their badminton players.
 
-A few resources to get you started if this is your first Flutter project:
+Artificial Intelligence used to analyse player performance based on inputted data.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Referee assistant to help aid on-court scoring
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+View information about a club and their venue, as well as, their success in tournaments and leagues.
+
+## Setting up an account
+
+Note: You can only set up an account with your club president.
+
+Once you have created an account with your club president, enter the email you registered with and the temporary password.
+
+You will be presented with a new screen to change your temporary password.
+
+Once complete, you will have full access to the system.
+
+Welcome to Racquet.
