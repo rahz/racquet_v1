@@ -8,12 +8,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:racquet_v1/main.dart';
+import 'package:racquet_v1/mobile.dart';
+import 'package:racquet_v1/webapp.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MobileApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
