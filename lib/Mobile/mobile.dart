@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Screens/mDashboard.dart';
 
 void main() => runApp(const MobileApp());
 
@@ -9,10 +10,8 @@ class MobileApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Dashboard',
-      home: Scaffold(
-        backgroundColor: Color(0xFF1A354F),
-      ),
+      title: 'Racquet',
+      home: mDashboard(),
     );
   }
 }
