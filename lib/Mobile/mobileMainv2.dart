@@ -125,43 +125,6 @@ class _MobileAppStateful extends State<MobileAppStateful>
         ),
       ),
       backgroundColor: Color(0xFF080321),
-      // bottomNavigationBar: Container(
-      //   margin: EdgeInsets.all(20),
-      //   decoration: BoxDecoration(
-      //       color: Color(0xFF3A3D58),
-      //       borderRadius: BorderRadius.circular(30)),
-      //   child: ClipRRect(
-      //     borderRadius: BorderRadius.circular(30),
-      //     child: DefaultTabController(
-      //       length: 4,
-      //       child: TabBar(
-      //         controller: _screenSwitcher,
-      //         unselectedLabelColor: Color(0xFF080321),
-      //         indicator: ShapeDecoration(
-      //             shape: RoundedRectangleBorder(
-      //                 borderRadius: BorderRadius.circular(35),
-      //                 side: BorderSide(
-      //                   color: Colors.white,
-      //                 ))),
-      //         tabs: [
-      //           Tab(
-      //             icon: Icon(Icons.home),
-      //           ),
-      //           Tab(
-      //             icon: Icon(Icons.person),
-      //           ),
-      //           Tab(
-      //             icon: Icon(Icons.gamepad),
-      //           ),
-      //           Tab(
-      //             icon: Icon(Icons.show_chart),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
-
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           iconTheme: IconThemeData(color: Colors.white),
@@ -178,17 +141,6 @@ class _MobileAppStateful extends State<MobileAppStateful>
           onTap: (navIndex) => setState(() => this.navIndex = navIndex),
         ),
       ),
-
-      // body: TabBarView(
-      //   children: [
-      //     MobileDashboard(),
-      //     MobileRef(),
-      //     MobileGameAssitant(),
-      //     MobilePlayerAssistant(),
-      //     MobileSettings(),
-      //   ],
-      //   controller: _screenSwitcher,
-      // ),
     );
   }
 }
