@@ -115,9 +115,9 @@ class _MobileAppStateful extends State<MobileAppStateful>
             backgroundColor: colour.AppColours.blueBackground,
             title: Text(
               appBarTitle,
-              textAlign: TextAlign.center,
+              //textAlign: TextAlign.left,
               style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 18,
                   color: colour.AppColours.bodyTextColor,
                   fontWeight: FontWeight.w700),
             ),

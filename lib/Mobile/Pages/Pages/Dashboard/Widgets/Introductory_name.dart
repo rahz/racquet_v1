@@ -6,12 +6,32 @@ class GreetingMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String greeting() {
+      var hour = DateTime.now().hour;
+
+      if (hour >= 0 && hour <= 6) {
+        return 'Night';
+      } else if (hour >= 7 && hour <= 11) {
+        return 'Morning';
+      } else if (hour >= 12 && hour <= 18) {
+        return 'Afternoon';
+      } else if (hour >= 19 && hour <= 24) {
+        return 'Evening';
+      }
+      return 'L';
+    }
+
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Good" + "Hello",
-          style:
-              TextStyle(color: colour.AppColours.bodyTextColor, fontSize: 24),
+          "Good " + greeting() + ",",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: colour.AppColours.bodyTextColor,
+            fontSize: 45,
+            fontWeight: FontWeight.bold,
+          ),
         )
       ],
     );
