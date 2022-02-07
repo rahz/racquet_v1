@@ -41,8 +41,6 @@ class MobileDashboard extends StatelessWidget {
               ],
             ),
           ),
-          NextMatchDashboardBox(),
-          NextMatchDashboardBox(),
         ],
       );
 

@@ -43,12 +43,11 @@ class MyClubDashboardBox extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 25),
                 ),
-                Icon(
-                  LineAwesomeIcons.accusoft,
-                  color: Colors.white,
-                  size: 120,
+                Image.asset(
+                  'assets/images/manunited.png',
+                  height: 110,
                 ),
-                Text("Example Club",
+                Text("Manchester United",
                     style: TextStyle(
                         color: colour.AppColours.bodyTextColor, fontSize: 11))
               ],
