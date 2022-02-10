@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as colour;
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 
 class GreetingMessage extends StatelessWidget {
   const GreetingMessage({Key? key}) : super(key: key);
@@ -28,7 +28,6 @@ class GreetingMessage extends StatelessWidget {
           "Good " + greeting() + ",",
           textAlign: TextAlign.left,
           style: TextStyle(
-            color: colour.AppColours.bodyTextColor,
             fontSize: 45,
             fontWeight: FontWeight.bold,
           ),

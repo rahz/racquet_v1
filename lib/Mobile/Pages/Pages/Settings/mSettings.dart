@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as colour;
+import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart';
 
-class MobileSettings extends StatelessWidget {
+import 'Widgets.dart';
+
+class MobileSettings extends StatefulWidget {
   const MobileSettings({Key? key}) : super(key: key);
 
   @override
+  State<MobileSettings> createState() => _MobileSettingsState();
+}
+
+class _MobileSettingsState extends State<MobileSettings> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colour.AppColours.blueBackground,
-      body: Center(
-          child: Text(
-        "Setting",
-        style: TextStyle(color: colour.AppColours.bodyTextColor),
-      )),
-    );
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Column(
+          children: [
+            Row(
+              children: [
+                Text("Use Dark Mode:"),
+                SwitchThemeButton(),
+              ],
+            )
+          ],
+        ));
   }
 }

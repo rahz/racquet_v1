@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as Colour;
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as Colour;
 
 class MobilePlayerAssistant extends StatelessWidget {
   const MobilePlayerAssistant({Key? key}) : super(key: key);
@@ -7,7 +7,7 @@ class MobilePlayerAssistant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colour.AppColours.blueBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Text(
           "Player",

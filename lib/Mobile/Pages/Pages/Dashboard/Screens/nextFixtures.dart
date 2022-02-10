@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as colour;
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 
 class NextFixturesScreen extends StatelessWidget {
   const NextFixturesScreen({Key? key}) : super(key: key);

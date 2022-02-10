@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as colour;
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 
 class MyClub extends StatelessWidget {
   const MyClub({Key? key}) : super(key: key);
@@ -12,12 +12,12 @@ class MyClub extends StatelessWidget {
           Icons.arrow_back,
           color: Colors.white,
         ),
-        backgroundColor: colour.AppColours.secondAccent,
+        backgroundColor: Theme.of(context).splashColor,
         onPressed: () {
           Navigator.pop(context);
         },
       ),
-      backgroundColor: colour.AppColours.blueBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Text(
           "This is where the clubs information will be.",

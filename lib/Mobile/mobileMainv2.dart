@@ -3,12 +3,15 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:racquet_v1/Mobile/Pages/Pages/Settings/Widgets.dart';
+import 'Pages/Assets/themes.dart';
 import 'Pages/Pages/Settings/mSettings.dart';
 import 'Pages/Pages/Dashboard/mDashboard.dart';
 import 'Pages/Pages/Player Analytics/mPlayer.dart';
 import 'Pages/Pages/Game Creator/mGame.dart';
 import 'Pages/Pages/Referee Assistant/mRef.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as colour;
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart';
 
 void main() => runApp(const MobileApp());
 
@@ -16,13 +19,20 @@ class MobileApp extends StatelessWidget {
   const MobileApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Racquet',
-      home: MobileAppStateful(),
-    );
-  }
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+        builder: (context, _) {
+          final themeProvider = Provider.of<ThemeProvider>(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Racquet',
+            themeMode: themeProvider.themeMode,
+            theme: AppColours.lightTheme,
+            darkTheme: AppColours.darkTheme,
+            home: MobileAppStateful(),
+          );
+        },
+      );
 }
 
 class MobileAppStateful extends StatefulWidget {
@@ -81,46 +91,45 @@ class _MobileAppStateful extends State<MobileAppStateful>
     return Scaffold(
       body: screens[navIndex],
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
-          child: AppBar(
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(top: 0),
-                child: Row(
-                    // mainAxisSize: MainAxisSize.min,
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          print('Pressed');
-                        },
-                        child: Container(
-                          child: const CircleAvatar(
-                            radius: 30,
-                            backgroundImage:
-                                ExactAssetImage('assets/images/person.jpeg'),
-                          ),
-                          padding: const EdgeInsets.all(1.0), // borde width
-                          decoration: BoxDecoration(
-                            color: Colors.white, // border color
-                            shape: BoxShape.circle,
-                          ),
+        preferredSize: Size.fromHeight(55),
+        child: AppBar(
+          //elevation: 0,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(top: 0, left: 5, right: 5),
+              child: Row(
+                  // mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        print('Pressed');
+                      },
+                      child: Container(
+                        child: const CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              ExactAssetImage('assets/images/person.jpeg'),
                         ),
-                      )
-                    ]),
-              ),
-            ],
-            backgroundColor: colour.AppColours.blueBackground,
-            title: Text(
-              appBarTitle,
-              //textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: colour.AppColours.bodyTextColor,
-                  fontWeight: FontWeight.w700),
+                        padding: const EdgeInsets.all(1.5), // borde width
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .backgroundColor, // border color
+                            shape: BoxShape.circle),
+                      ),
+                    )
+                  ]),
             ),
+          ],
+          backgroundColor:
+              Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+          title: Text(
+            appBarTitle,
+            //textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 18,
+                color: AppColours.bodyTextColor,
+                fontWeight: FontWeight.w700),
           ),
         ),
       ),
@@ -130,9 +139,13 @@ class _MobileAppStateful extends State<MobileAppStateful>
           iconTheme: IconThemeData(color: Colors.white),
         ),
         child: CurvedNavigationBar(
-          color: colour.AppColours.secondAccent,
-          buttonBackgroundColor: colour.AppColours.navButton,
-          backgroundColor: Colors.transparent,
+          color: Theme.of(context).primaryColor,
+          buttonBackgroundColor: Theme.of(context)
+              .primaryColor
+              .withOpacity(0.4)
+              .withAlpha(200)
+              .withBlue(255),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           height: 60,
           animationCurve: Curves.easeInOutCubic,
           animationDuration: Duration(milliseconds: 450),

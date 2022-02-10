@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as colour;
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 
 class MobileRef extends StatelessWidget {
   const MobileRef({Key? key}) : super(key: key);
@@ -7,7 +7,7 @@ class MobileRef extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colour.AppColours.blueBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Text(
           "Referee Assistant",

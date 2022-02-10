@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/colours.dart' as colour;
+import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 import 'package:racquet_v1/Mobile/Pages/Pages/Dashboard/Screens/myclubscreen.dart';
 
 class MyClubDashboardBox extends StatelessWidget {
@@ -27,7 +27,7 @@ class MyClubDashboardBox extends StatelessWidget {
         height: 175,
         width: 175,
         decoration: BoxDecoration(
-            color: colour.AppColours.secondAccent,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
