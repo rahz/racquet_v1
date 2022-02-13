@@ -4,36 +4,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:racquet_v1/Mobile/Pages/Pages/Settings/Widgets.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Settings/Widgets.dart';
 import 'Pages/Assets/themes.dart';
-import 'Pages/Pages/Settings/mSettings.dart';
-import 'Pages/Pages/Dashboard/mDashboard.dart';
-import 'Pages/Pages/Player Analytics/mPlayer.dart';
-import 'Pages/Pages/Game Creator/mGame.dart';
-import 'Pages/Pages/Referee Assistant/mRef.dart';
+import 'Pages/MobilePages/Settings/mSettings.dart';
+import 'Pages/MobilePages/Dashboard/mDashboard.dart';
+import 'Pages/MobilePages/Player Analytics/mPlayer.dart';
+import 'Pages/MobilePages/Game Creator/mGame.dart';
+import 'Pages/MobilePages/Referee Assistant/mRef.dart';
 import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart';
-
-void main() => runApp(const MobileApp());
-
-class MobileApp extends StatelessWidget {
-  const MobileApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (context) => ThemeProvider(),
-        builder: (context, _) {
-          final themeProvider = Provider.of<ThemeProvider>(context);
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Racquet',
-            themeMode: themeProvider.themeMode,
-            theme: AppColours.lightTheme,
-            darkTheme: AppColours.darkTheme,
-            home: MobileAppStateful(),
-          );
-        },
-      );
-}
 
 class MobileAppStateful extends StatefulWidget {
   const MobileAppStateful({Key? key}) : super(key: key);

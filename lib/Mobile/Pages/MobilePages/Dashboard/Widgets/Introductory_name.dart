@@ -22,11 +22,11 @@ class GreetingMessage extends StatelessWidget {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           "Good " + greeting() + ",",
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 45,
             fontWeight: FontWeight.bold,

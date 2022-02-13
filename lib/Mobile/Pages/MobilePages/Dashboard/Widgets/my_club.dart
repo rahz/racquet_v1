@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
-import 'package:racquet_v1/Mobile/Pages/Pages/Dashboard/Screens/myclubscreen.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Screens/myclubscreen.dart';
 
 class MyClubDashboardBox extends StatelessWidget {
   const MyClubDashboardBox({Key? key}) : super(key: key);
