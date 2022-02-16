@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 

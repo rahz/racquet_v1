@@ -3,15 +3,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:racquet_v1/Mobile/Pages/MobilePages/Settings/Widgets.dart';
-import 'Pages/Assets/themes.dart';
 import 'Pages/MobilePages/Settings/mSettings.dart';
 import 'Pages/MobilePages/Dashboard/mDashboard.dart';
 import 'Pages/MobilePages/Player Analytics/mPlayer.dart';
 import 'Pages/MobilePages/Game Creator/mGame.dart';
 import 'Pages/MobilePages/Referee Assistant/mRef.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart';
 
 class MobileAppStateful extends StatefulWidget {
   const MobileAppStateful({Key? key}) : super(key: key);
@@ -53,7 +49,7 @@ class _MobileAppStateful extends State<MobileAppStateful>
     }
     final screens = [
       MobileRef(),
-      MobileGameAssitant(),
+      MobileGameBuilder(),
       MobileDashboard(),
       MobilePlayerAssistant(),
       MobileSettings(),
@@ -80,9 +76,7 @@ class _MobileAppStateful extends State<MobileAppStateful>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        print('Pressed');
-                      },
+                      onTap: () {},
                       child: Container(
                         child: const CircleAvatar(
                           radius: 30,
@@ -106,15 +100,16 @@ class _MobileAppStateful extends State<MobileAppStateful>
             //textAlign: TextAlign.left,
             style: TextStyle(
                 fontSize: 18,
-                color: AppColours.bodyTextColor,
-                fontWeight: FontWeight.w700),
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).textTheme.bodyText2?.color),
           ),
         ),
       ),
       backgroundColor: Color(0xFF080321),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme:
+              IconThemeData(size: 15, color: Theme.of(context).iconTheme.color),
         ),
         child: CurvedNavigationBar(
           color: Theme.of(context).primaryColor,

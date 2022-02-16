@@ -1,13 +1,15 @@
+// ignore_for_file: prefer_const_constructors, file_names
+
 import 'package:flutter/material.dart';
 
-class mobileWelcome extends StatefulWidget {
-  const mobileWelcome({Key? key}) : super(key: key);
+class MobileWelcome extends StatefulWidget {
+  const MobileWelcome({Key? key}) : super(key: key);
 
   @override
-  State<mobileWelcome> createState() => _mobileWelcomeState();
+  State<MobileWelcome> createState() => _MobileWelcomeState();
 }
 
-class _mobileWelcomeState extends State<mobileWelcome> {
+class _MobileWelcomeState extends State<MobileWelcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

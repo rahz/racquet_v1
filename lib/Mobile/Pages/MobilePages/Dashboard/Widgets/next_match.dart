@@ -1,7 +1,7 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Screens/nextFixtures.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class NextMatchDashboardBox extends StatelessWidget {
   const NextMatchDashboardBox({Key? key}) : super(key: key);
@@ -33,10 +33,7 @@ class NextMatchDashboardBox extends StatelessWidget {
                 children: [
                   Text(
                     "Next Match",
-                    style: TextStyle(
-                        color: colour.AppColours.bodyTextColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   SizedBox(height: 20),
                   Center(
@@ -49,15 +46,14 @@ class NextMatchDashboardBox extends StatelessWidget {
                               "Feb",
                               style: TextStyle(
                                 fontSize: 30,
-                                color: colour.AppColours.bodyTextColor,
                               ),
                               textAlign: TextAlign.right,
                             ),
                             Text(
                               "7",
                               style: TextStyle(
-                                  fontSize: 35,
-                                  color: colour.AppColours.bodyTextColor),
+                                fontSize: 35,
+                              ),
                               textAlign: TextAlign.right,
                             ),
                           ],
@@ -71,9 +67,7 @@ class NextMatchDashboardBox extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Text("Bayern Munich F.C.",
-                      style: TextStyle(
-                          color: colour.AppColours.bodyTextColor, fontSize: 15))
+                  Text("Bayern Munich F.C.", style: TextStyle(fontSize: 15))
                 ],
               ),
             ),

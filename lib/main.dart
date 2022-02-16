@@ -1,8 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/mDashboard.dart';
 import 'package:racquet_v1/Mobile/mobileMainv2.dart';
-import 'package:racquet_v1/Mobile/mobileWelcome.dart';
 import 'package:racquet_v1/TabletApp/tabWelcome.dart';
 
 import 'package:racquet_v1/WebApp/webWelcome.dart';
@@ -28,7 +28,7 @@ class MainPage extends StatelessWidget {
             home: ResponsiveLayout(
                 mobileHome: MobileAppStateful(),
                 tabletHome: tabletWelcome(),
-                webHome: webWelcome()),
+                webHome: WebWelcome()),
           );
         },
       );

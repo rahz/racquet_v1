@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
@@ -19,28 +21,28 @@ class AppColours {
   static Color navButton = const Color(0xFF001086);
 
   static final darkTheme = ThemeData(
-    backgroundColor: Colors.cyan[400],
-    scaffoldBackgroundColor: Color(0xFF080321),
-    colorScheme: ColorScheme.dark(),
-    primaryColor: Color(0xFF2b3369),
-    splashColor: Color(0xFF001086),
-    textTheme: TextTheme(
-      bodyText2: TextStyle(
-        color: Colors.white,
+      backgroundColor: Colors.cyan[400],
+      scaffoldBackgroundColor: Color(0xFF080321),
+      colorScheme: ColorScheme.dark(),
+      primaryColor: Color(0xFF2b3369),
+      splashColor: Color(0xFF001086),
+      textTheme: TextTheme(
+        bodyText2: TextStyle(
+          color: Colors.white,
+        ),
       ),
-    ),
-  );
+      iconTheme: IconThemeData(color: Colors.white));
 
   static final lightTheme = ThemeData(
-    backgroundColor: Color.fromARGB(255, 150, 0, 236),
-    scaffoldBackgroundColor: Colors.grey[350],
-    colorScheme: ColorScheme.light(),
-    primaryColor: Colors.pink,
-    splashColor: Colors.pink[700],
-    textTheme: TextTheme(
-      bodyText2: TextStyle(
-        color: Colors.black,
+      backgroundColor: Color.fromARGB(255, 252, 252, 252),
+      scaffoldBackgroundColor: Color.fromARGB(255, 238, 238, 238),
+      colorScheme: ColorScheme.light(),
+      primaryColor: Color.fromARGB(255, 108, 180, 209),
+      splashColor: Color.fromARGB(255, 34, 33, 33),
+      textTheme: TextTheme(
+        bodyText2: TextStyle(
+          color: Colors.black,
+        ),
       ),
-    ),
-  );
+      iconTheme: IconThemeData(color: Colors.black));
 }

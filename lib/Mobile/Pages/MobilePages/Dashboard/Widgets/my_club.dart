@@ -1,6 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Screens/myclubscreen.dart';
 
 class MyClubDashboardBox extends StatelessWidget {
@@ -34,22 +34,18 @@ class MyClubDashboardBox extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   "My Club",
-                  style: TextStyle(
-                      color: colour.AppColours.bodyTextColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
+                SizedBox(height: 10),
                 Image.asset(
                   'assets/images/manunited.png',
-                  height: 110,
+                  height: 100,
                 ),
-                Text("Manchester United",
-                    style: TextStyle(
-                        color: colour.AppColours.bodyTextColor, fontSize: 11))
+                SizedBox(height: 5),
+                Text("Manchester United", style: TextStyle(fontSize: 18))
               ],
             ),
           ),

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
 
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
+import 'package:flutter/material.dart';
 
 class LatestClubResultsBox extends StatelessWidget {
   const LatestClubResultsBox({Key? key}) : super(key: key);
@@ -39,14 +39,11 @@ class LatestClubResultsBox extends StatelessWidget {
                 Text(
                   "Latest Club Results",
                   textAlign: TextAlign.end,
-                  style: TextStyle(
-                      color: colour.AppColours.bodyTextColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Expanded(
                     child: ListView.builder(
-                        itemCount: 3,
+                        itemCount: 6,
                         itemBuilder: ((context, index) => Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Column(
@@ -60,7 +57,7 @@ class LatestClubResultsBox extends StatelessWidget {
                                             Icons.sports_tennis,
                                             size: 32,
                                           ),
-                                          Text("Team 1"),
+                                          Text("Team $index"),
                                           Text(
                                             " 0 ",
                                             style: TextStyle(fontSize: 25),

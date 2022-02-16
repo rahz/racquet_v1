@@ -1,5 +1,6 @@
+// ignore_for_file: file_names, prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 
 class GreetingMessage extends StatelessWidget {
   const GreetingMessage({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class GreetingMessage extends StatelessWidget {
           "Good " + greeting() + ",",
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 45,
+            fontSize: 35,
             fontWeight: FontWeight.bold,
           ),
         )

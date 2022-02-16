@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors, file_names
 
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
+import 'package:flutter/material.dart';
 
 class LatestPlayerResultsBox extends StatelessWidget {
   const LatestPlayerResultsBox({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class LatestPlayerResultsBox extends StatelessWidget {
     //       color: colour.AppColours.secondAccent,
     //       borderRadius: BorderRadius.all(Radius.circular(20))),
     // );
-
     return GestureDetector(
       // onTap: (() {
       //   Navigator.push(
@@ -39,14 +38,11 @@ class LatestPlayerResultsBox extends StatelessWidget {
                 Text(
                   "Latest Player Results",
                   textAlign: TextAlign.end,
-                  style: TextStyle(
-                      color: colour.AppColours.bodyTextColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Expanded(
                     child: ListView.builder(
-                        itemCount: 3,
+                        itemCount: 6,
                         itemBuilder: ((context, index) => Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Column(
@@ -60,7 +56,7 @@ class LatestPlayerResultsBox extends StatelessWidget {
                                             Icons.sports_tennis,
                                             size: 32,
                                           ),
-                                          Text("Player 1"),
+                                          Text("Player $index"),
                                           Text(
                                             " 0 ",
                                             style: TextStyle(fontSize: 25),
@@ -83,7 +79,7 @@ class LatestPlayerResultsBox extends StatelessWidget {
                                     ],
                                   ),
                                 )
-                            //make index the latest descedning scores
+                            //make index the latest descending scores
 
                             )))
               ],
