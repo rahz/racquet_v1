@@ -1,10 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names
 
 import 'package:flutter/material.dart';
-
-import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Widgets/latest_c_results.dart';
-
-import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Widgets/Latest_p_results.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/clubRanking.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/performance.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/statistics.dart';
@@ -35,7 +31,9 @@ class MobilePlayerAssistant extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [PlayerStatisticsBox()],
+                children: [
+                  PlayerStatisticsBox(),
+                ],
               ),
             ),
             Padding(
