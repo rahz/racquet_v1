@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-
-import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Screens/nextFixtures.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Screen/clubRankingScreen.dart';
 
 class ClubRankingButton extends StatelessWidget {
   const ClubRankingButton({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class ClubRankingButton extends StatelessWidget {
       onTap: (() {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const NextFixturesScreen()),
+          MaterialPageRoute(builder: (context) => const ClubRankingScreen()),
         );
       }),
       child: Container(

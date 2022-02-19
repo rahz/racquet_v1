@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/clubRanking.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/currentForm.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/performance.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/statistics.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Player%20Analytics/Widgets/touneyWinsPie.dart';
@@ -14,7 +15,7 @@ class MobilePlayerAssistant extends StatelessWidget {
         // backgroundColor: colour.AppColours.blueBackground,
         body: ListView(
           children: [
-            SizedBox(height: 106),
+            SizedBox(height: 10),
             Padding(
               padding: EdgeInsets.only(left: 10, right: 10, top: 20),
               child: Row(
@@ -27,6 +28,15 @@ class MobilePlayerAssistant extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CurrentFormBox(),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(5),
               child: Row(

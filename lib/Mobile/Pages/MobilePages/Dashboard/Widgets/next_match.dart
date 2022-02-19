@@ -19,8 +19,7 @@ class NextMatchDashboardBox extends StatelessWidget {
         height: 175,
         width: 175,
         decoration: BoxDecoration(
-            color: Theme.of(context)
-                .primaryColor, //colour.AppColours.secondAccent,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: FittedBox(
           fit: BoxFit.fitHeight,

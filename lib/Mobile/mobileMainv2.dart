@@ -3,6 +3,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:racquet_v1/Mobile/LogInScreen.dart';
 import 'Pages/MobilePages/Settings/mSettings.dart';
 import 'Pages/MobilePages/Dashboard/mDashboard.dart';
 import 'Pages/MobilePages/Player Analytics/mPlayer.dart';
@@ -76,7 +77,12 @@ class _MobileAppStateful extends State<MobileAppStateful>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
                       child: Container(
                         child: const CircleAvatar(
                           radius: 30,

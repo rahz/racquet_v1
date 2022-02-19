@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:racquet_v1/Mobile/LogInScreen.dart';
 import 'package:racquet_v1/Mobile/mobileMainv2.dart';
 import 'package:racquet_v1/TabletApp/tabWelcome.dart';
 
@@ -26,7 +27,8 @@ class MainPage extends StatelessWidget {
             theme: AppColours.lightTheme,
             darkTheme: AppColours.darkTheme,
             home: ResponsiveLayout(
-                mobileHome: MobileAppStateful(),
+                //mobileHome: MobileAppStateful(),
+                mobileHome: LoginScreen(),
                 tabletHome: tabletWelcome(),
                 webHome: WebWelcome()),
           );

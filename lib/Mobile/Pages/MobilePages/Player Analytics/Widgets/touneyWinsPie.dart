@@ -18,6 +18,8 @@ class TourneyWinsButton extends StatelessWidget {
       "Loss": loss,
     };
 
+    var winsTotal = wins.toInt();
+
     final colorList = <Color>[
       Theme.of(context).backgroundColor,
       Theme.of(context).backgroundColor.withOpacity(0.2)
@@ -54,7 +56,7 @@ class TourneyWinsButton extends StatelessWidget {
                         ringStrokeWidth: 8,
                         colorList: colorList,
                         initialAngleInDegree: -90,
-                        centerText: "Wins\n$wins",
+                        centerText: "Wins\n$winsTotal",
                         centerTextStyle: TextStyle(
                             fontSize: 20,
                             color:

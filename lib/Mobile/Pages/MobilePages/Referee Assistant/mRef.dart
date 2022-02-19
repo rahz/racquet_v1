@@ -1,7 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 
 class MobileRef extends StatelessWidget {
   const MobileRef({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class MobileRef extends StatelessWidget {
       body: Center(
         child: Text(
           "Referee Assistant",
-          style: TextStyle(color: colour.AppColours.bodyTextColor),
+          style: TextStyle(),
         ),
       ),
     );

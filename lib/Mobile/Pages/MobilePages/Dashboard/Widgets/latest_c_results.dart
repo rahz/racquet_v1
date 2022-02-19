@@ -41,6 +41,15 @@ class LatestClubResultsBox extends StatelessWidget {
                   textAlign: TextAlign.end,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
+                SizedBox(height: 5),
+                Container(
+                  decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).backgroundColor.withOpacity(0.4)),
+                  height: 2,
+                  width: 375,
+                ),
+                SizedBox(height: 5),
                 Expanded(
                     child: ListView.builder(
                         itemCount: 6,

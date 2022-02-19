@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:racquet_v1/Mobile/Pages/Assets/themes.dart' as colour;
 
 class NextFixturesScreen extends StatelessWidget {
   const NextFixturesScreen({Key? key}) : super(key: key);
@@ -12,19 +11,18 @@ class NextFixturesScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.arrow_back,
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
         ),
-        backgroundColor: colour.AppColours.secondAccent,
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Navigator.pop(context);
         },
       ),
-      backgroundColor: colour.AppColours.blueBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Text(
           "This is where the next fixtures for the players will be.",
-          style:
-              TextStyle(color: colour.AppColours.bodyTextColor, fontSize: 32),
+          style: TextStyle(fontSize: 32),
           textAlign: TextAlign.center,
         ),
       ),
