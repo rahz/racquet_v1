@@ -3,70 +3,88 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import 'package:relative_scale/relative_scale.dart';
+
+import '../Screens/Tournament/selections.dart';
+
 class LeagueButton extends StatelessWidget {
   const LeagueButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 175,
-      width: 375,
-      child: Stack(
-        children: [
-          ClipPath(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 60.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  image: DecorationImage(
-                      image: ExactAssetImage("assets/images/league.png"),
-                      fit: BoxFit.cover),
-                  //color: Theme.of(context).backgroundColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.2),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
+    return RelativeBuilder(
+      builder: (context, height, width, sy, sx) {
+        return GestureDetector(
+          onTap: (() {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TournamentSelectionEntries()),
+            );
+          }),
+          child: SizedBox(
+            height: 175,
+            width: sx(500),
+            child: Stack(
+              children: [
+                ClipPath(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 60.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        image: DecorationImage(
+                            image: ExactAssetImage("assets/images/league.png"),
+                            fit: BoxFit.cover),
+                        //color: Theme.of(context).backgroundColor,
+                      ),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                        ),
+                      ),
+                    ),
                   ),
+                  clipper: CustomClipPath(),
                 ),
-              ),
-            ),
-            clipper: CustomClipPath(),
-          ),
-          ClipPath(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-            ),
-            clipper: CustomClipPath2(),
-          ),
-          ClipPath(
-            child: Container(
-              decoration:
-                  BoxDecoration(color: Theme.of(context).backgroundColor),
-            ),
-            clipper: CustomClipPath3(),
-          ),
-          Column(
-            children: [
-              SizedBox(height: 5),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text(
-                  "League Table\nCreator",
-                  style: TextStyle(fontSize: 35),
+                ClipPath(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                  ),
+                  clipper: CustomClipPath2(),
                 ),
-              ),
-            ],
+                ClipPath(
+                  child: Container(
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).backgroundColor),
+                  ),
+                  clipper: CustomClipPath3(),
+                ),
+                Column(
+                  children: [
+                    SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        "League Table\nCreator",
+                        style: TextStyle(fontSize: 35),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

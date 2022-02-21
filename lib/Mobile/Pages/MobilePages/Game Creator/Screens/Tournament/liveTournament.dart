@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-class ClubRankingScreen extends StatelessWidget {
-  const ClubRankingScreen({Key? key}) : super(key: key);
+class LiveTourneyScreen extends StatelessWidget {
+  const LiveTourneyScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ClubRankingScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Text(
-          "Filler Page",
+          "Tournament Filler",
           style: TextStyle(fontSize: 32),
           textAlign: TextAlign.center,
         ),

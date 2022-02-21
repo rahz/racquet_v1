@@ -38,6 +38,11 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   provider: ^6.0.2
   pie_chart: ^5.1.0
+  cloud_firestore: ^3.1.8
+  firebase_auth: ^3.3.7
+  firebase_core: ^1.12.0
+  fluttertoast: ^8.0.8
+  relative_scale: ^2.0.0
 
 dev_dependencies:
   flutter_test:

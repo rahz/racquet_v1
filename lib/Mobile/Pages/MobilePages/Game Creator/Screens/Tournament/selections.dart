@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/liveTournament.dart';
+
+import '../../../Player Analytics/Screen/clubRankingScreen.dart';
 
 class TournamentSelectionEntries extends StatefulWidget {
   const TournamentSelectionEntries({Key? key}) : super(key: key);
@@ -39,6 +42,12 @@ class _TournamentSelectionEntriesState
           onStepContinue: () {
             if (currentStep != 2) {
               setState(() => currentStep++);
+            } else if (currentStep == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LiveTourneyScreen()),
+              );
             }
           },
           onStepCancel: () {
@@ -46,6 +55,7 @@ class _TournamentSelectionEntriesState
               setState(() => currentStep--);
             }
           },
+
           steps: [
             Step(
                 isActive: currentStep >= 0,

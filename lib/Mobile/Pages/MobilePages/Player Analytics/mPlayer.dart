@@ -22,7 +22,7 @@ class MobilePlayerAssistant extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TourneyWinsButton(),
-                  SizedBox(width: 30),
+                  SizedBox(width: 13),
                   ClubRankingButton(),
                 ],
               ),

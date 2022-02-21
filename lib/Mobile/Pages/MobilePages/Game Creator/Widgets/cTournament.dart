@@ -4,80 +4,86 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/selections.dart';
+import 'package:relative_scale/relative_scale.dart';
 
 class TourneyButton extends StatelessWidget {
   const TourneyButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (() {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const TournamentSelectionEntries()),
-        );
-      }),
-      child: SizedBox(
-        height: 175,
-        width: 375,
-        child: Stack(
-          children: [
-            ClipPath(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 130.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    image: DecorationImage(
-                        image: ExactAssetImage("assets/images/tourney.jpeg"),
-                        fit: BoxFit.cover),
-                    //color: Theme.of(context).backgroundColor,
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+    return RelativeBuilder(
+      builder: (context, height, width, sy, sx) {
+        return GestureDetector(
+          onTap: (() {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TournamentSelectionEntries()),
+            );
+          }),
+          child: SizedBox(
+            height: 175,
+            width: sx(500),
+            child: Stack(
+              children: [
+                ClipPath(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 130.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        image: DecorationImage(
+                            image:
+                                ExactAssetImage("assets/images/tourney.jpeg"),
+                            fit: BoxFit.cover),
+                        //color: Theme.of(context).backgroundColor,
+                      ),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0),
+                          ),
+                        ),
                       ),
                     ),
                   ),
+                  clipper: CustomClipPath(),
                 ),
-              ),
-              clipper: CustomClipPath(),
-            ),
-            ClipPath(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-              ),
-              clipper: CustomClipPath2(),
-            ),
-            ClipPath(
-              child: Container(
-                decoration:
-                    BoxDecoration(color: Theme.of(context).backgroundColor),
-              ),
-              clipper: CustomClipPath3(),
-            ),
-            Column(
-              children: [
-                SizedBox(height: 85),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    "Create a\nTournament",
-                    style: TextStyle(fontSize: 35),
+                ClipPath(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
                   ),
+                  clipper: CustomClipPath2(),
+                ),
+                ClipPath(
+                  child: Container(
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).backgroundColor),
+                  ),
+                  clipper: CustomClipPath3(),
+                ),
+                Column(
+                  children: [
+                    SizedBox(height: 85),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        "Create a\nTournament",
+                        style: TextStyle(fontSize: 35),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

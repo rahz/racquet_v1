@@ -37,7 +37,7 @@ class AppColours {
       backgroundColor: Color.fromARGB(255, 252, 252, 252),
       scaffoldBackgroundColor: Color.fromARGB(255, 238, 238, 238),
       colorScheme: ColorScheme.light(),
-      primaryColor: Color.fromARGB(255, 108, 180, 209),
+      primaryColor: Color.fromARGB(255, 96, 212, 212),
       splashColor: Color.fromARGB(255, 34, 33, 33),
       textTheme: TextTheme(
         bodyText2: TextStyle(

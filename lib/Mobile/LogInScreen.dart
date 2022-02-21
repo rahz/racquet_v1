@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'dart:developer';
-import 'dart:html';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/mDashboard.dart';
 import 'package:racquet_v1/Mobile/mobileMainv2.dart';
 
@@ -18,6 +16,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     final emailInput = TextFormField(
@@ -25,6 +25,15 @@ class _LoginScreenState extends State<LoginScreen> {
       controller: usernameController,
       keyboardType: TextInputType.emailAddress,
       //validator
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Please enter an e-mail");
+        }
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+          return ("Please enter a valid e-mail");
+        }
+        return null;
+      },
       onSaved: (value) {
         usernameController.text = value!;
       },
@@ -43,6 +52,15 @@ class _LoginScreenState extends State<LoginScreen> {
       controller: passwordController,
       obscureText: true,
       //validator
+      validator: (value) {
+        RegExp regex = new RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return ("Password cannot be blank.");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Please enter a valid password");
+        }
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -63,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
         padding: EdgeInsets.all(10),
         onPressed: () {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => MobileAppStateful()));
+          signin(usernameController.text, passwordController.text);
         },
         child: Text("Login"),
       ),
@@ -111,5 +128,22 @@ class _LoginScreenState extends State<LoginScreen> {
         )),
       ),
     );
+  }
+
+  void signin(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: "Login Succesful"),
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MobileAppStateful()))
+              })
+          .catchError((error) {
+        Fluttertoast.showToast(msg: error!.message);
+      });
+    }
   }
 }

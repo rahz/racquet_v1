@@ -15,7 +15,7 @@ class MobileGameBuilder extends StatelessWidget {
         body: Center(
           child: ListView(
             children: [
-              SizedBox(height: 106),
+              SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: Row(
@@ -35,14 +35,12 @@ class MobileGameBuilder extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+                padding: EdgeInsets.only(left: 0, right: 0, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ResumeTourneyButton(),
-                    SizedBox(width: 30),
                     ResumeLeagueButton(),
                   ],
                 ),
