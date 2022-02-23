@@ -2,8 +2,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
+import 'package:racquet_v1/Mobile/Logic/Utilities/snackbar.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/mDashboard.dart';
+import 'package:racquet_v1/Mobile/RegScreen.dart';
 import 'package:racquet_v1/Mobile/mobileMainv2.dart';
+import 'package:racquet_v1/TabletApp/tabWelcome.dart';
+import 'package:racquet_v1/WebApp/webWelcome.dart';
+import 'package:racquet_v1/main.dart';
+import 'package:racquet_v1/responsive_layout.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,15 +21,48 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
   final _auth = FirebaseAuth.instance;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+  }
+
+  void signIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await Authoriser().signIn(
+        username: _usernameController.text, password: _passwordController.text);
+
+    if (res == "Task Successful") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: ((context) => ResponsiveLayout(
+                mobileHome: MobileAppStateful(),
+                tabletHome: tabletWelcome(),
+                webHome: WebWelcome(),
+              )),
+        ),
+      );
+    } else {
+      showSnackBar(res, context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final emailInput = TextFormField(
       autofocus: false,
-      controller: usernameController,
+      controller: _usernameController,
       keyboardType: TextInputType.emailAddress,
       //validator
       validator: (value) {
@@ -35,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
       onSaved: (value) {
-        usernameController.text = value!;
+        _usernameController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -49,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     final passwordInput = TextFormField(
       autofocus: false,
-      controller: passwordController,
+      controller: _passwordController,
       obscureText: true,
       //validator
       validator: (value) {
@@ -62,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       onSaved: (value) {
-        passwordController.text = value!;
+        _passwordController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
@@ -78,13 +118,16 @@ class _LoginScreenState extends State<LoginScreen> {
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
       color: Colors.amber,
-      child: MaterialButton(
-        padding: EdgeInsets.all(10),
-        onPressed: () {
-          signin(usernameController.text, passwordController.text);
-        },
-        child: Text("Login"),
-      ),
+      child: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+              color: Theme.of(context).backgroundColor,
+            ))
+          : MaterialButton(
+              padding: EdgeInsets.all(10),
+              onPressed: signIn,
+              child: Text("Login"),
+            ),
     );
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -119,8 +162,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   loginButton,
                   SizedBox(
-                    height: 25,
+                    height: 20,
                   ),
+                  // signup using club id and club password
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Text("use your club information to "),
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegScreen()));
+                        },
+                        child: Container(
+                          child: Text(
+                            "sign up.",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
@@ -128,22 +195,5 @@ class _LoginScreenState extends State<LoginScreen> {
         )),
       ),
     );
-  }
-
-  void signin(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: "Login Succesful"),
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MobileAppStateful()))
-              })
-          .catchError((error) {
-        Fluttertoast.showToast(msg: error!.message);
-      });
-    }
   }
 }

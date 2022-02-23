@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ResponsiveLayout extends StatelessWidget {
+import 'Mobile/Logic/providers/userProvider.dart';
+
+class ResponsiveLayout extends StatefulWidget {
   final Widget mobileHome;
   final Widget webHome;
   final Widget tabletHome;
@@ -15,15 +18,32 @@ class ResponsiveLayout extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<ResponsiveLayout> createState() => _ResponsiveLayoutState();
+}
+
+class _ResponsiveLayoutState extends State<ResponsiveLayout> {
+  @override
+  void initState() {
+    super.initState();
+    addData();
+  }
+
+  addData() async {
+    UserProvider _userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    await _userProvider.refreshUser();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < 700) {
-          return mobileHome;
+          return widget.mobileHome;
         } else if (constraints.maxWidth < 1024) {
-          return tabletHome;
+          return widget.tabletHome;
         } else {
-          return webHome;
+          return widget.webHome;
         }
       },
     );
