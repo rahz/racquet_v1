@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
 import 'package:racquet_v1/Mobile/Logic/Utilities/snackbar.dart';
+import 'package:racquet_v1/Mobile/LookUpClub.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/mDashboard.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Settings/Widgets.dart';
 import 'package:racquet_v1/Mobile/RegScreen.dart';
 import 'package:racquet_v1/Mobile/mobileMainv2.dart';
 import 'package:racquet_v1/TabletApp/tabWelcome.dart';
@@ -117,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
-      color: Colors.amber,
+      color: Theme.of(context).primaryColor,
       child: _isLoading
           ? Center(
               child: CircularProgressIndicator(
@@ -177,7 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const RegScreen()));
+                                  builder: (context) =>
+                                      const LookUpClubScreen()));
                         },
                         child: Container(
                           child: Text(
@@ -194,6 +197,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         )),
       ),
+      floatingActionButton: LoginScreenThemeSwitch(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );
   }
 }

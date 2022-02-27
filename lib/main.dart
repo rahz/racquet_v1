@@ -2,9 +2,12 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:racquet_v1/Mobile/LogInScreen.dart';
 import 'package:racquet_v1/Mobile/Logic/providers/userProvider.dart';
+import 'package:racquet_v1/Mobile/LookUpClub.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/selections.dart';
 import 'package:racquet_v1/TabletApp/tabWelcome.dart';
 
 import 'package:racquet_v1/WebApp/webWelcome.dart';
@@ -29,14 +32,14 @@ class MainPage extends StatelessWidget {
           final themeProvider = Provider.of<ThemeProvider>(context);
           return MultiProvider(
             providers: [ChangeNotifierProvider(create: (_) => UserProvider())],
-            child: MaterialApp(
+            child: GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Racquet',
               themeMode: themeProvider.themeMode,
               theme: AppColours.lightTheme,
               darkTheme: AppColours.darkTheme,
               home: ResponsiveLayout(
-                  //mobileHome: MobileAppStateful(),
+                  //mobileHome: LookUpClubScreen(),
                   mobileHome: LoginScreen(),
                   tabletHome: tabletWelcome(),
                   webHome: WebWelcome()),

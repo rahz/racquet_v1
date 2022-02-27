@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:racquet_v1/Mobile/Logic/Firebase/clubmodel.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/storage_manager.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/usermodel.dart';
 
@@ -12,14 +13,22 @@ class Authoriser {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<UserModel> getPlayerDetails() async {
-    User currentPlayer = _auth.currentUser!;
+    User? currentPlayer = _auth.currentUser!;
 
     DocumentSnapshot snap =
         await _firestore.collection('users').doc(currentPlayer.uid).get();
     return UserModel.fromSnap(snap);
   }
 
+  Future<ClubModel> getClubDetails() async {
+    DocumentSnapshot clubSnap =
+        await _firestore.collection('clubs').doc().get();
+    return ClubModel.fromSnap(clubSnap);
+  }
+
   Future<String> signUpPlayer({
+    required int clubID,
+    required String clubUID,
     required String forename,
     required String surname,
     required String email,

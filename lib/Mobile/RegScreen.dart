@@ -1,21 +1,25 @@
 // ignore_for_file: prefer_const_constructors, file_names
 import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
 import 'package:racquet_v1/Mobile/Logic/Utilities/Image_Picker.dart';
 import 'package:racquet_v1/Mobile/Logic/Utilities/snackbar.dart';
 import 'package:racquet_v1/Mobile/mobileMainv2.dart';
-
+import 'package:http/http.dart' as http;
 import '../TabletApp/tabWelcome.dart';
 import '../WebApp/webWelcome.dart';
 import '../responsive_layout.dart';
 
 class RegScreen extends StatefulWidget {
-  const RegScreen({Key? key}) : super(key: key);
+  final int clubID;
+  final String clubUID;
+  const RegScreen(this.clubID, this.clubUID, {Key? key}) : super(key: key);
 
   @override
   _RegScreenState createState() => _RegScreenState();
@@ -29,10 +33,15 @@ class _RegScreenState extends State<RegScreen> {
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _phoneNOController = TextEditingController();
   final TextEditingController _clubIDController = TextEditingController();
-  final TextEditingController _clubPassController = TextEditingController();
+
   Uint8List? _profilePic;
   bool _isLoading = false;
   final _auth = FirebaseAuth.instance;
+
+  void initState() {
+    super.initState();
+    //CheckPPnotVoid();
+  }
 
   void dispose() {
     super.dispose();
@@ -42,21 +51,56 @@ class _RegScreenState extends State<RegScreen> {
     _surnameController.dispose();
     _phoneNOController.dispose();
     _clubIDController.dispose();
-    _clubPassController.dispose();
   }
 
   ProfilePicChooser() async {
     Uint8List? pp = await ChooseImage(ImageSource.gallery);
-    setState(() {
-      _profilePic = pp;
-    });
+
+    if (pp != null) {
+      setState(() {
+        _profilePic = pp;
+      });
+    }
+    if (pp == null) {
+      Uint8List pp = (await rootBundle.load('assets/images/default.jpeg'))
+          .buffer
+          .asUint8List();
+      setState(() {
+        _profilePic = pp;
+      });
+    }
+  }
+
+  void CheckPPnotVoid() {
+    if (_profilePic != null) {
+      SignUpPlayer();
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Missing Information"),
+          content: Text("Please select a valid profile picture!"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Close"))
+          ],
+        ),
+      );
+      //build(context);
+    }
   }
 
   void SignUpPlayer() async {
     setState(() {
       _isLoading = true;
     });
+
     String res = await Authoriser().signUpPlayer(
+      clubID: widget.clubID,
+      clubUID: widget.clubUID,
       forename: _forenameController.text,
       surname: _surnameController.text,
       email: _usernameController.text,
@@ -70,7 +114,8 @@ class _RegScreenState extends State<RegScreen> {
     if (res != 'Task Successful') {
       showSnackBar(res, context);
     } else {
-      Navigator.of(context).pushReplacement(
+      Navigator.pushReplacement(
+        context,
         MaterialPageRoute(
           builder: ((context) => ResponsiveLayout(
                 mobileHome: MobileAppStateful(),
@@ -148,23 +193,7 @@ class _RegScreenState extends State<RegScreen> {
         ),
       ),
     );
-    final clubPassInput = TextFormField(
-      autofocus: false,
-      controller: _clubPassController,
-      obscureText: true,
-      keyboardType: TextInputType.text,
-      onSaved: (value) {
-        _clubPassController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        hintText: "Club Password",
-        contentPadding: EdgeInsets.all(10),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
+
     final emailInput = TextFormField(
       autofocus: false,
       controller: _usernameController,
@@ -220,7 +249,7 @@ class _RegScreenState extends State<RegScreen> {
     final SignUpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
-      color: Colors.amber,
+      color: Theme.of(context).primaryColor,
       child: _isLoading
           ? Center(
               child: CircularProgressIndicator(
@@ -229,7 +258,7 @@ class _RegScreenState extends State<RegScreen> {
             )
           : MaterialButton(
               padding: EdgeInsets.all(10),
-              onPressed: SignUpPlayer,
+              onPressed: CheckPPnotVoid,
               child: Text("Sign Up"),
             ),
     );
@@ -295,10 +324,6 @@ class _RegScreenState extends State<RegScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  clubPassInput,
-                  SizedBox(
-                    height: 10,
-                  ),
                   emailInput,
                   SizedBox(
                     height: 10,
@@ -328,7 +353,20 @@ class _RegScreenState extends State<RegScreen> {
         ),
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          Navigator.pop(context);
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text("Missing Information"),
+              content: Text("Please select a valid profile picture!"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Close"))
+              ],
+            ),
+          );
         },
       ),
     );

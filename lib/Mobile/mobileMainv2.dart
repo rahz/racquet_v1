@@ -1,9 +1,16 @@
 // ignore_for_file: prefer_const_constructors, file_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:racquet_v1/Mobile/LogInScreen.dart';
+import 'package:racquet_v1/Mobile/getProfilePic.dart';
+import 'Logic/Firebase/usermodel.dart';
+import 'Logic/Utilities/snackbar.dart';
+import 'Logic/providers/userProvider.dart';
 import 'Pages/MobilePages/Settings/mSettings.dart';
 import 'Pages/MobilePages/Dashboard/mDashboard.dart';
 import 'Pages/MobilePages/Player Analytics/mPlayer.dart';
@@ -22,11 +29,38 @@ class _MobileAppStateful extends State<MobileAppStateful>
   late TabController _screenSwitcher;
   int navIndex = 2;
   String appBarTitle = 'demo';
+  bool isLoading = false;
+  dynamic userData;
 
   @override
   void initState() {
     _screenSwitcher = TabController(length: 5, vsync: this);
     super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      userData = userSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        e.toString(),
+        context,
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -37,6 +71,8 @@ class _MobileAppStateful extends State<MobileAppStateful>
 
   @override
   Widget build(BuildContext context) {
+    UserModel player = Provider.of<UserProvider>(context).getUser;
+
     if (navIndex == 0) {
       appBarTitle = 'Referee Assistant';
     } else if (navIndex == 1) {
@@ -73,32 +109,28 @@ class _MobileAppStateful extends State<MobileAppStateful>
             Padding(
               padding: const EdgeInsets.only(top: 0, left: 5, right: 5),
               child: Row(
-                  // mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      },
-                      child: Container(
-                        child: const CircleAvatar(
-                          radius: 30,
-                          backgroundImage:
-                              ExactAssetImage('assets/images/person.jpeg'),
-                        ),
-                        padding: const EdgeInsets.all(1.5), // borde width
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .backgroundColor, // border color
-                            shape: BoxShape.circle),
+                // mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        userData['ppURL'],
                       ),
-                    )
-                  ]),
+                      radius: 30,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
+          automaticallyImplyLeading: false,
           backgroundColor:
               Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
           title: Text(
