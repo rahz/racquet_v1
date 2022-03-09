@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:racquet_v1/Mobile/DisplayClubConfirmiation.dart';
+import 'package:racquet_v1/Mobile/Logic/Firebase/clubmodel.dart';
 
 import 'package:racquet_v1/Mobile/Logic/Utilities/Image_Picker.dart';
 
+import 'LogInScreen.dart';
 import 'Logic/Utilities/snackbar.dart';
 
 class LookUpClubScreen extends StatefulWidget {
@@ -172,6 +174,25 @@ class _LookUpClubScreenState extends State<LookUpClubScreen> {
                 ),
     );
     return Scaffold(
+      persistentFooterButtons: [
+        ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              // background color
+              primary: Theme.of(context).primaryColor,
+            ),
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (builder) => LoginScreen()));
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).backgroundColor,
+            ),
+            label: Text(
+              'Login Instead',
+              style: TextStyle(color: Theme.of(context).backgroundColor),
+            )),
+      ],
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: SingleChildScrollView(
@@ -212,16 +233,6 @@ class _LookUpClubScreenState extends State<LookUpClubScreen> {
             ),
           ),
         )),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.arrow_back,
-          color: Theme.of(context).backgroundColor,
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () {
-          Navigator.pop(context);
-        },
       ),
     );
   }

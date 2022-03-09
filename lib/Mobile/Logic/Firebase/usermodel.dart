@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
+  final int? clubID;
+  final String? clubUID;
   final String? uid;
   final String? forename;
   final String? surname;
@@ -10,6 +12,8 @@ class UserModel {
   final String? ppURL;
 
   const UserModel({
+    required this.clubID,
+    required this.clubUID,
     required this.uid,
     required this.forename,
     required this.surname,
@@ -22,6 +26,8 @@ class UserModel {
     var snapshot = snap.data() as Map<String, dynamic>;
     //factory UserModel.fromMap(map) {
     return UserModel(
+      clubID: snapshot['Club ID'],
+      clubUID: snapshot['Club UID'],
       uid: snapshot['uid'],
       forename: snapshot['forename'],
       surname: snapshot['surname'],
@@ -33,6 +39,8 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() => {
+        'Club ID': clubID,
+        'Club UID': clubUID,
         'uid': uid,
         'forename': forename,
         'surname': surname,

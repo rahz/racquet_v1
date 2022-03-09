@@ -4,16 +4,15 @@ import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/clubmodel.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/usermodel.dart';
 
-class UserProvider with ChangeNotifier {
-  // UserModel?;
-  UserModel? _user;
+class ClubProvider with ChangeNotifier {
+  ClubModel? _club;
   final Authoriser _authoriser = Authoriser();
 
-  UserModel get getUser => _user!;
+  ClubModel get getClub => _club!;
 
-  Future<void> refreshUser() async {
-    UserModel? user = await _authoriser.getPlayerDetails();
-    _user = user;
+  Future<void> refreshClub() async {
+    ClubModel club = await _authoriser.getClubDetails();
+    _club = club;
     notifyListeners();
   }
 }

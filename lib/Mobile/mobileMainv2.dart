@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:racquet_v1/Mobile/LogInScreen.dart';
-import 'package:racquet_v1/Mobile/getProfilePic.dart';
+import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
 import 'Logic/Firebase/usermodel.dart';
 import 'Logic/Utilities/snackbar.dart';
 import 'Logic/providers/userProvider.dart';
@@ -99,72 +99,100 @@ class _MobileAppStateful extends State<MobileAppStateful>
       Icon(LineAwesomeIcons.line_chart, size: 30),
       Icon(LineAwesomeIcons.cog, size: 30),
     ];
-    return Scaffold(
-      body: screens[navIndex],
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
-        child: AppBar(
-          //elevation: 0,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(top: 0, left: 5, right: 5),
-              child: Row(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                    },
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        userData['ppURL'],
-                      ),
-                      radius: 30,
+    return isLoading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Scaffold(
+            body: screens[navIndex],
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(55),
+              child: AppBar(
+                //elevation: 0,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0, left: 5, right: 5),
+                    child: Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text("Sign Out"),
+                                content:
+                                    Text("Are you sure you want to sign out?"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Authoriser().signOut();
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen()),
+                                        (Route<dynamic> route) => false,
+                                      );
+                                    },
+                                    child: Text("Yes"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("No"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(userData['ppURL']),
+                            //player.ppURL!),
+                            radius: 30,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
+                automaticallyImplyLeading: false,
+                backgroundColor:
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+                title: Text(
+                  appBarTitle,
+                  //textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).textTheme.bodyText2?.color),
+                ),
               ),
             ),
-          ],
-          automaticallyImplyLeading: false,
-          backgroundColor:
-              Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-          title: Text(
-            appBarTitle,
-            //textAlign: TextAlign.left,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).textTheme.bodyText2?.color),
-          ),
-        ),
-      ),
-      backgroundColor: Color(0xFF080321),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          iconTheme:
-              IconThemeData(size: 15, color: Theme.of(context).iconTheme.color),
-        ),
-        child: CurvedNavigationBar(
-          color: Theme.of(context).primaryColor,
-          buttonBackgroundColor: Theme.of(context)
-              .primaryColor
-              .withOpacity(0.4)
-              .withAlpha(200)
-              .withBlue(255),
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          height: 60,
-          animationCurve: Curves.easeInOutCubic,
-          animationDuration: Duration(milliseconds: 450),
-          items: items,
-          index: navIndex,
-          onTap: (navIndex) => setState(() => this.navIndex = navIndex),
-        ),
-      ),
-    );
+            backgroundColor: Color(0xFF080321),
+            bottomNavigationBar: Theme(
+              data: Theme.of(context).copyWith(
+                iconTheme: IconThemeData(
+                    size: 15, color: Theme.of(context).iconTheme.color),
+              ),
+              child: CurvedNavigationBar(
+                color: Theme.of(context).primaryColor,
+                buttonBackgroundColor: Theme.of(context)
+                    .primaryColor
+                    .withOpacity(0.4)
+                    .withAlpha(200)
+                    .withBlue(255),
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                height: 60,
+                animationCurve: Curves.easeInOutCubic,
+                animationDuration: Duration(milliseconds: 450),
+                items: items,
+                index: navIndex,
+                onTap: (navIndex) => setState(() => this.navIndex = navIndex),
+              ),
+            ),
+          );
   }
 }

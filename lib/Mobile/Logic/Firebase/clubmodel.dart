@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class ClubModel {
   final String? uid;
-  final String? club_id;
+  final int club_id;
   final String? club_abr;
   final String? club_name;
   final String? club_pass;

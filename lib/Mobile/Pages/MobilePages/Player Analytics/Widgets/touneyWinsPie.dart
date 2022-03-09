@@ -39,8 +39,8 @@ class TourneyWinsButton extends StatelessWidget {
             );
           }),
           child: Container(
-            height: sy(120),
-            width: sy(120),
+            height: 175,
+            width: 175,
             decoration: BoxDecoration(
                 color: Theme.of(context)
                     .primaryColor, //colour.AppColours.secondAccent,

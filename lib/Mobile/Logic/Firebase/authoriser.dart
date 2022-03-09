@@ -8,6 +8,8 @@ import 'package:racquet_v1/Mobile/Logic/Firebase/clubmodel.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/storage_manager.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/usermodel.dart';
 
+import '../Utilities/snackbar.dart';
+
 class Authoriser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -21,8 +23,18 @@ class Authoriser {
   }
 
   Future<ClubModel> getClubDetails() async {
+    User? currentPlayer = _auth.currentUser!;
+    var clubDB = {};
+    var userDBtemp = {};
+
+    var tempClubuid = await _firestore
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    userDBtemp = tempClubuid.data()!;
+    String? forSnap = tempClubuid['Club UID'];
     DocumentSnapshot clubSnap =
-        await _firestore.collection('clubs').doc().get();
+        await _firestore.collection('clubs').doc(forSnap).get();
     return ClubModel.fromSnap(clubSnap);
   }
 
@@ -56,6 +68,8 @@ class Authoriser {
         //add user to database
 
         UserModel user = UserModel(
+            clubID: clubID,
+            clubUID: clubUID,
             uid: creds.user!.uid,
             forename: forename,
             surname: surname,
@@ -75,22 +89,6 @@ class Authoriser {
     return resolve;
   }
 
-  // Future<String> signIn(String email, String password) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     await _auth
-  //         .signInWithEmailAndPassword(email: email, password: password)
-  //         .then((uid) => {
-  //               Fluttertoast.showToast(msg: "Login Succesful"),
-  //               Navigator.pushReplacement(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                       builder: (context) => MobileAppStateful()))
-  //             })
-  //         .catchError((error) {
-  //       Fluttertoast.showToast(msg: error!.message);
-  //     });
-  //   }
-  // }
   Future<String> signIn({
     required String username,
     required String password,
@@ -109,5 +107,9 @@ class Authoriser {
       res = error.toString();
     }
     return res;
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }

@@ -23,7 +23,7 @@ class LeagueButton extends StatelessWidget {
             );
           }),
           child: SizedBox(
-            height: 175,
+            height: sy(118),
             width: sx(500),
             child: Stack(
               children: [

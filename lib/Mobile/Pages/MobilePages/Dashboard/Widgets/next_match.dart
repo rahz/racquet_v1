@@ -24,8 +24,8 @@ class NextMatchDashboardBox extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(0),
             child: Container(
-              height: sy(120),
-              width: sy(120),
+              height: 175,
+              width: 175,
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(20))),

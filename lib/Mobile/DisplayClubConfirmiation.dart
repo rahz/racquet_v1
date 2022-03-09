@@ -1,10 +1,9 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:racquet_v1/Mobile/LogInScreen.dart';
 import 'package:racquet_v1/Mobile/Logic/Utilities/snackbar.dart';
 import 'package:racquet_v1/Mobile/LookUpClub.dart';
 import 'package:racquet_v1/Mobile/RegScreen.dart';
@@ -72,69 +71,86 @@ class _ClubConfirmScreenState extends State<ClubConfirmScreen> {
             child: CircularProgressIndicator(),
           )
         : Scaffold(
-            floatingActionButton: FloatingActionButton(
-              child: Icon(
-                Icons.arrow_forward,
-                color: Theme.of(context).backgroundColor,
-              ),
-              backgroundColor: Theme.of(context).primaryColor,
-              onPressed: () {},
-            ),
+            //
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Inputted from last screen: " + widget.clubID.toString(),
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  Text(
-                    "Inputted from last screen: " + widget.clubPass,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  Text("From Firebase"),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    height: 100,
-                    child: Image.network(clubDB['Club Logo']),
-                  ),
-                  Text(clubDatabase['Club Abr']),
-                  Text(clubDatabase['Club Name']),
-                  Text(clubDB['Club Pass']),
-                  Text(clubDB['uid']),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => LookUpClubScreen()));
-                        },
-                        color: Colors.red[300],
-                        child: Icon(LineAwesomeIcons.times),
-                      ),
-                      SizedBox(width: 30),
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => RegScreen(
-                                        clubDB['Club ID'],
-                                        clubDB['uid'],
-                                      )));
-                        },
-                        color: Colors.green[300],
-                        child: Icon(LineAwesomeIcons.check),
+              child: Container(
+                height: 450,
+                width: MediaQuery.of(context).size.width - 30,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 15,
+                        spreadRadius: 5,
                       )
-                    ],
-                  )
-                ],
+                    ]),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 10),
+                    Text(
+                      "Confirm Club",
+                      style: TextStyle(fontSize: 36),
+                    ),
+                    SizedBox(height: 50),
+                    SizedBox(
+                      //height: 160,
+                      width: MediaQuery.of(context).size.width - 80,
+                      child: Image.network(
+                        clubDatabase['Club Logo'],
+                        scale: 0.5,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      clubDatabase['Club Abr'],
+                      style: TextStyle(fontSize: 26),
+                    ),
+                    Text(
+                      clubDatabase['Club Name'],
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        MaterialButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => LookUpClubScreen()));
+                          },
+                          color: Colors.red[300],
+                          child: Icon(LineAwesomeIcons.times),
+                        ),
+                        SizedBox(width: 30),
+                        MaterialButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => RegScreen(
+                                          clubDB['Club ID'],
+                                          clubDB['uid'],
+                                        )));
+                          },
+                          color: Colors.green[300],
+                          child: Icon(LineAwesomeIcons.check),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           );

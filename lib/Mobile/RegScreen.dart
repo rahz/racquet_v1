@@ -62,11 +62,12 @@ class _RegScreenState extends State<RegScreen> {
       });
     }
     if (pp == null) {
-      Uint8List pp = (await rootBundle.load('assets/images/default.jpeg'))
-          .buffer
-          .asUint8List();
+      Uint8List defaultpic =
+          (await rootBundle.load('assets/images/default.jpeg'))
+              .buffer
+              .asUint8List();
       setState(() {
-        _profilePic = pp;
+        _profilePic = defaultpic;
       });
     }
   }
@@ -155,22 +156,6 @@ class _RegScreenState extends State<RegScreen> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         hintText: "Surname",
-        contentPadding: EdgeInsets.all(10),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-    final clubIDInput = TextFormField(
-      autofocus: false,
-      controller: _clubIDController,
-      keyboardType: TextInputType.text,
-      onSaved: (value) {
-        _clubIDController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        hintText: "Club ID",
         contentPadding: EdgeInsets.all(10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -320,10 +305,6 @@ class _RegScreenState extends State<RegScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  clubIDInput,
-                  SizedBox(
-                    height: 10,
-                  ),
                   emailInput,
                   SizedBox(
                     height: 10,
@@ -353,20 +334,7 @@ class _RegScreenState extends State<RegScreen> {
         ),
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text("Missing Information"),
-              content: Text("Please select a valid profile picture!"),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("Close"))
-              ],
-            ),
-          );
+          Navigator.pop(context);
         },
       ),
     );

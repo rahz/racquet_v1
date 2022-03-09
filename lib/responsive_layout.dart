@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Mobile/Logic/providers/clubProvider.dart';
 import 'Mobile/Logic/providers/userProvider.dart';
 
 class ResponsiveLayout extends StatefulWidget {
@@ -32,6 +33,10 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
     UserProvider _userProvider =
         Provider.of<UserProvider>(context, listen: false);
     await _userProvider.refreshUser();
+
+    ClubProvider _clubProvider =
+        Provider.of<ClubProvider>(context, listen: false);
+    await _clubProvider.refreshClub();
   }
 
   @override

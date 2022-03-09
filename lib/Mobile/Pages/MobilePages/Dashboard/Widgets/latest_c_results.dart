@@ -21,7 +21,7 @@ class LatestClubResultsBox extends StatelessWidget {
             );
           }),
           child: Container(
-            height: 175,
+            height: sy(175),
             width: sx(497),
             decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
