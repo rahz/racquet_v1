@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081987452776",
+    "project_id": "racquet-fa2aa",
+    "storage_bucket": "racquet-fa2aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081987452776:android:e9bc04ac795f97cfb690dd",
+        "android_client_info": {
+          "package_name": "com.example.racquet_v1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081987452776-d6l65dp6aeajqkg63h58jo8ukek66r7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxOZgaqs8Bn87gjt9B2Ym_Dq9Sw1osasU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081987452776-d6l65dp6aeajqkg63h58jo8ukek66r7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
