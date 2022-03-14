@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
+import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/clubmodel.dart';
+import 'package:racquet_v1/Mobile/Logic/Firebase/usermodel.dart';
 import 'package:racquet_v1/Mobile/Logic/providers/clubProvider.dart';
-
+import 'package:gato/gato.dart' as gato;
 import '../../../../../Logic/Utilities/snackbar.dart';
 import 'liveTournament.dart';
 
@@ -24,22 +27,13 @@ class _HorizontalSelectionsForTournamentState
   final firestore = FirebaseFirestore.instance;
   bool isLoading = false;
   bool isPressed = false;
-  var playerDatabase = {};
-
-  Future<String> lookUpPlayer(uid) async {
-    try {
-      var clubData =
-          await FirebaseFirestore.instance.collection("users").doc(uid).get();
-
-      playerDatabase = clubData.data()!;
-    } catch (err) {
-      showSnackBar(err.toString(), context);
-    }
-    return 'null';
-  }
+  bool isFull = false;
+  var clubDB = {};
+  var clubDatabase = {};
 
   @override
   Widget build(BuildContext context) {
+    int pvts = _participatesValue.toInt();
     return Scaffold(
       body: Stepper(
         type: StepperType.horizontal,
@@ -48,8 +42,44 @@ class _HorizontalSelectionsForTournamentState
           setState(() => currentStep = index);
         },
         onStepContinue: () {
+          if (currentStep == 1) {
+            if (_participatesValue.toInt() < selectedPlayersUID.length) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("My title"),
+                    content: Text("This is my message."),
+                    actions: [
+                      TextButton(
+                        child: Text("OK"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            } else {
+              AlertDialog(
+                title: Text("My title"),
+                content: Text("This is my message."),
+                actions: [
+                  TextButton(
+                    child: Text("OK"),
+                    onPressed: () {},
+                  ),
+                ],
+              );
+            }
+          }
+
           if (currentStep != 2) {
             setState(() => currentStep++);
+            print(' yes current step' + currentStep.toString());
+            print(' yes pv:' + _participatesValue.toString());
+            print(' yes uid' + selectedPlayersUID.length.toString());
           } else if (currentStep == 2) {
             Navigator.push(
               context,
@@ -116,80 +146,163 @@ class _HorizontalSelectionsForTournamentState
                     index = index;
                     selectedFlag[index] = selectedFlag[index] ?? false;
                     bool? isSelected = selectedFlag[index];
-                    return Card(
-                      margin: EdgeInsets.symmetric(vertical: 5),
-                      color: Theme.of(context).primaryColor,
-                      child: ListTile(
-                          onLongPress: () => onLongPress(
-                                isSelected!,
-                                index,
-                              ),
-                          onTap: () => onTap(isSelected!, index, snap,
-                              alreadyExistsInSelected),
-                          title: Row(
-                            children: [
-                              Text(
-                                snap['forename'].toString(),
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              Text(' '),
-                              Text(
-                                snap['surname'].toString(),
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ],
-                          ),
-                          subtitle: Text(snap['Club ID'].toString()),
-                          trailing: _buildSelectIcon(isSelected!, snap)),
+                    return StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("clubs")
+                          .doc(snap['Club UID'])
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot3) {
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        } else {
+                          return Card(
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            color: Theme.of(context).primaryColor,
+                            child: ListTile(
+                                onLongPress: () => onLongPress(
+                                      isSelected!,
+                                      index,
+                                    ),
+                                onTap: () => onTap(isSelected!, index, snap,
+                                    alreadyExistsInSelected),
+                                title: Row(
+                                  children: [
+                                    Text(
+                                      snap['forename'].toString(),
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    Text(' '),
+                                    Text(
+                                      snap['surname'].toString(),
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Text(
+                                    snapshot3.data!['Club Abr'].toString()),
+                                // subtitle:
+                                //     Text(getClubDoc(snap['Club ID']).toString()),
+                                trailing: _buildSelectIcon(isSelected!, snap)),
+                          );
+                        }
+                      },
                     );
                   },
                 );
               },
             ),
           ),
+
+          // Step(
           Step(
-              title: Text(
-                'Review',
-              ),
-              isActive: currentStep >= 2,
-              // content: Slider(
-              //   min: 4,
-              //   max: 24,
-              //   value: _participatesValue,
-              //   divisions: 20,
-              //   label: '${_participatesValue.round()}',
-              //   onChanged: (value) {
-              //     setState(() {
-              //       _participatesValue = value;
-              //     });
-              //   },
-              // ),
-              content: Column(
-                children: [
-                  Text(selectedPlayersUID.toString()),
-                  Text(playerDatabase.toString()),
-                ],
-              )),
+            title: Text(
+              'Review',
+            ),
+            isActive: currentStep >= 2,
+            content: Column(
+              children: [
+                Text("Number of Participants: $pvts"),
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    // return Text('Hi');
+                    return ListView.builder(
+                        padding: EdgeInsets.only(top: 5, bottom: 5),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: selectedPlayersUID.length,
+                        itemBuilder: (ctx, index) {
+                          // var map =
+                          //     lookUpPlayer(index, selectedPlayersUID[index]);
+                          // var maps = FirebaseFirestore.instance
+                          //     .collection("users")
+                          //     .doc(selectedPlayersUID[index])
+                          //     .get();
+
+                          // var snap = UserModel.fromSnap(maps);
+
+                          return StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection("users")
+                                .doc(selectedPlayersUID[index])
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<DocumentSnapshot> snapshot2) {
+                              if (!snapshot.hasData) {
+                                return CircularProgressIndicator();
+                              } else {
+                                return Card(
+                                  margin: EdgeInsets.symmetric(vertical: 5),
+                                  color: Theme.of(context).primaryColor,
+                                  child: ListTile(
+                                    title: Row(
+                                      children: [
+                                        Text(
+                                          snapshot2.data!['forename'] +
+                                              ' ' +
+                                              snapshot2.data!['surname'],
+                                        )
+                                      ],
+                                    ),
+                                    subtitle: Text(
+                                        snapshot2.data!['email'].toString()),
+                                    trailing: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          snapshot2.data!['ppURL']),
+                                      radius: 25,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        });
+                  },
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
   void onTap(bool isSelected, int index, snap, alreadyExists) {
-    if (isSelectionMode) {
-      setState(() {
-        selectedFlag[index] = !isSelected;
-        print('selected Flag: $isSelected');
-        //isSelectionMode = selectedFlag.containsValue(true);
-      });
-    } else {}
+    print(selectedPlayersUID);
+
+    if (selectedPlayersUID.length < _participatesValue) {
+      if (isSelectionMode) {
+        setState(() {
+          selectedFlag[index] = !isSelected;
+          print('selected Flag: $isSelected');
+          //isSelectionMode = selectedFlag.containsValue(true);
+        });
+      } else {}
+    }
 
     if (isSelected) {
       print('TRUE');
-      selectedPlayersUID.remove(snap['uid']);
+      selectedPlayersUID.remove(snap["uid"]);
+      // selectedPlayersUID.remove(snap.toString());
     } else {
-      print('FALSE');
-      selectedPlayersUID.add(snap['uid']);
+      if (selectedPlayersUID.length < _participatesValue) {
+        print('FALSE');
+        selectedPlayersUID.add(snap["uid"]);
+        setState(() {
+          isFull = true;
+        });
+        // selectedPlayersUID.add(snap.toString());
+      }
     }
     // _PlayersSelected.addAll(snap);
 
@@ -204,7 +317,7 @@ class _HorizontalSelectionsForTournamentState
     });
   }
 
-  Widget _buildSelectIcon(bool isSelected, Map snap) {
+  _buildSelectIcon(bool isSelected, Map snap) {
     if (isSelected) {
       return Stack(
         children: [
@@ -238,3 +351,39 @@ class _HorizontalSelectionsForTournamentState
     }
   }
 }
+
+//   Future<String> getClubDoc(int ClubPlayerID) async {
+//     setState(() {
+//       isLoading = true;
+//     });
+//     try {
+//       var clubIDFromDatabase = await FirebaseFirestore.instance
+//           .collection("clubs")
+//           .where("Club ID", isEqualTo: ClubPlayerID)
+//           .get()
+//           .then((querySnapshot) {
+//         querySnapshot.docs.forEach((result) {
+//           clubDB = result.data();
+//           print(result.data());
+//         });
+//       });
+
+//       var clubData = await FirebaseFirestore.instance
+//           .collection("clubs")
+//           .doc(clubDB['uid'])
+//           .get();
+
+//       print(clubDB);
+//       clubDatabase = clubData.data()!;
+//       print(clubDatabase);
+//       return clubDatabase['Club Abr'];
+//     } catch (err) {
+//       showSnackBar(err.toString(), context);
+//       setState(() {
+//         isLoading = false;
+//       });
+//       return err.toString();
+//     }
+//   }
+// }
+

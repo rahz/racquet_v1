@@ -22,6 +22,11 @@ class Authoriser {
     return UserModel.fromSnap(snap);
   }
 
+  Future<UserModel> getPlayerDetailsFromUID(uid) async {
+    DocumentSnapshot snap = await _firestore.collection('users').doc(uid).get();
+    return UserModel.fromSnap(snap);
+  }
+
   Future<ClubModel> getClubDetails() async {
     User? currentPlayer = _auth.currentUser!;
     var clubDB = {};

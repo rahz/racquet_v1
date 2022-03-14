@@ -38,6 +38,24 @@ class UserModel {
     //}
   }
 
+  static UserModel fromUID(String uid) {
+    var clubData =
+        FirebaseFirestore.instance.collection("users").doc(uid).get();
+    var snapshot = clubData as Map<String, dynamic>;
+    //factory UserModel.fromMap(map) {
+    return UserModel(
+      clubID: snapshot['Club ID'],
+      clubUID: snapshot['Club UID'],
+      uid: snapshot['uid'],
+      forename: snapshot['forename'],
+      surname: snapshot['surname'],
+      email: snapshot['email'],
+      phoneNo: snapshot['phoneNo'],
+      ppURL: snapshot['ppURL'],
+    );
+    //}
+  }
+
   Map<String, dynamic> toJson() => {
         'Club ID': clubID,
         'Club UID': clubUID,

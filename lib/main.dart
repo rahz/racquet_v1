@@ -59,7 +59,7 @@ class MainPage extends StatelessWidget {
               theme: AppColours.lightTheme,
               darkTheme: AppColours.darkTheme,
               home: ResponsiveLayout(
-                  //mobileHome: HorizontalSelectionsForTournament(),
+                  // mobileHome: HorizontalSelectionsForTournament(),
                   mobileHome: LoginScreen(),
                   tabletHome: tabletWelcome(),
                   webHome: WebWelcome()),

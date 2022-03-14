@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/horizontalSelections.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/selections.dart';
 import 'package:relative_scale/relative_scale.dart';
 
@@ -18,7 +19,8 @@ class TourneyButton extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const TournamentSelectionEntries()),
+                  builder: (context) =>
+                      const HorizontalSelectionsForTournament()),
             );
           }),
           child: SizedBox(
