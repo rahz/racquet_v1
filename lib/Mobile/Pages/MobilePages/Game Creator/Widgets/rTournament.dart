@@ -13,13 +13,13 @@ class ResumeTourneyButton extends StatelessWidget {
     return RelativeBuilder(
       builder: (context, height, width, sy, sx) {
         return GestureDetector(
-          onTap: (() {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const LiveTourneyScreen()),
-            );
-          }),
+          // onTap: (() {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => const LiveTourneyScreen()),
+          //   );
+          // }),
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Container(

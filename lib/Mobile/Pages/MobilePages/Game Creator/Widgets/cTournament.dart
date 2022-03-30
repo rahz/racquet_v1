@@ -16,7 +16,7 @@ class TourneyButton extends StatelessWidget {
       builder: (context, height, width, sy, sx) {
         return GestureDetector(
           onTap: (() {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) =>
