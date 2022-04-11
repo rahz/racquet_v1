@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/mGame.dart';
 
 class LiveTourneyScreen extends StatelessWidget {
   final List? PlayersUID;
@@ -25,7 +26,8 @@ class LiveTourneyScreen extends StatelessWidget {
           ),
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => MobileGameBuilder()));
           },
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -39,32 +41,37 @@ class LiveTourneyScreen extends StatelessWidget {
                 );
               }
               // return Text('Hi');
-              return ListView.builder(
-                  itemCount: PlayersUID!.length,
-                  itemBuilder: (ctx, index) {
-                    var snap = users.data!.docs[index].data();
-                    return StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(shuffledPlayers[index])
-                            .snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<DocumentSnapshot> userFromUID) {
-                          if (!users.hasData) {
-                            return CircularProgressIndicator();
-                          } else {
-                            return Column(
-                              children: [
-                                Text(index.toString() +
+              return Column(
+                children: <Widget>[
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: PlayersUID!.length,
+                      itemBuilder: (ctx, index) {
+                        var snap = users.data!.docs[index].data();
+                        return StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection("users")
+                                .doc(shuffledPlayers[index])
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<DocumentSnapshot> userFromUID) {
+                              if (!users.hasData) {
+                                return CircularProgressIndicator();
+                              } else {
+                                return Text(index.toString() +
                                     ' ' +
                                     userFromUID.data!['forename'] +
                                     ' ' +
-                                    userFromUID.data!['surname']),
-                              ],
-                            );
-                          }
-                        });
-                  });
+                                    userFromUID.data!['surname']);
+                              }
+                            });
+                      }),
+                  Text(
+                    PlayersUID.toString(),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              );
             })
 
         // body: Text(PlayersUID.toString()),

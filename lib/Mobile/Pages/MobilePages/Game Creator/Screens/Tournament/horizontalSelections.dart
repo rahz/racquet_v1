@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'liveTournament.dart';
 
 class HorizontalSelectionsForTournament extends StatefulWidget {
@@ -13,7 +15,7 @@ class HorizontalSelectionsForTournament extends StatefulWidget {
 class _HorizontalSelectionsForTournamentState
     extends State<HorizontalSelectionsForTournament> {
   int currentStep = 0;
-  double _participatesValue = 20;
+  double _participatesValue = 4;
   double _courtsAv = 1;
   Map<int, bool> selectedFlag = {};
   List<String> selectedPlayersUID = <String>[];
@@ -25,10 +27,66 @@ class _HorizontalSelectionsForTournamentState
   var clubDB = {};
   var clubDatabase = {};
 
+  final TextEditingController _tNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tNameController.dispose();
+    _passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     int pvts = _participatesValue.toInt();
     int cA = _courtsAv.toInt();
+
+    final tName = TextFormField(
+      autofocus: false,
+      controller: _tNameController,
+      onSaved: (value) {
+        _tNameController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: Icon(LineAwesomeIcons.trophy),
+        contentPadding: EdgeInsets.all(10),
+        hintText: "Name of Tournament",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
+    final passwordInput = TextFormField(
+      autofocus: false,
+      controller: _passwordController,
+      obscureText: false,
+      //validator
+      validator: (value) {
+        RegExp regex = new RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return ("Password cannot be blank.");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Please enter a valid password");
+        }
+      },
+      onSaved: (value) {
+        _passwordController.text = value!;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.lock),
+        contentPadding: EdgeInsets.all(10),
+        hintText: "Password",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(40),
@@ -58,6 +116,15 @@ class _HorizontalSelectionsForTournamentState
             print(' yes pv:' + _participatesValue.toString());
             print(' yes uid' + selectedPlayersUID.length.toString());
           } else if (currentStep == 2) {
+            FirebaseFirestore.instance.collection('tournaments').add({
+              'listofplayersuid': selectedPlayersUID,
+              'Date Created': DateTime.now(),
+              'completed?': false,
+              'courts': _courtsAv.toInt(),
+              'numofplayers': _participatesValue.toInt(),
+              'name': _tNameController.text,
+              'password': _passwordController.text,
+            });
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -82,12 +149,23 @@ class _HorizontalSelectionsForTournamentState
             isActive: currentStep >= 0,
             content: Column(
               children: [
+                SizedBox(
+                  height: 10,
+                ),
+                tName,
+                SizedBox(
+                  height: 20,
+                ),
+                passwordInput,
+                SizedBox(
+                  height: 20,
+                ),
                 Text('Choose how many players will be participating:'),
                 Slider(
                   min: 4,
                   max: 24,
                   value: _participatesValue,
-                  divisions: 20,
+                  divisions: 5,
                   label: '${_participatesValue.round()}',
                   onChanged: (value) {
                     setState(() {

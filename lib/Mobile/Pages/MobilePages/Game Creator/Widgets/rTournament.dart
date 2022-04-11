@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Screens/nextFixtures.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/Widgets/listofcurrenttournaments.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/liveTournament.dart';
 import 'package:relative_scale/relative_scale.dart';
 
@@ -13,13 +14,13 @@ class ResumeTourneyButton extends StatelessWidget {
     return RelativeBuilder(
       builder: (context, height, width, sy, sx) {
         return GestureDetector(
-          // onTap: (() {
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => const LiveTourneyScreen()),
-          //   );
-          // }),
+          onTap: (() {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ListOfCurrentTournaments()),
+            );
+          }),
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Container(
