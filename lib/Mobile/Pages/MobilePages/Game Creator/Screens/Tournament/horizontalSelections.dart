@@ -125,14 +125,10 @@ class _HorizontalSelectionsForTournamentState
               'name': _tNameController.text,
               'password': _passwordController.text,
             });
+            //split listofplayersuid create map. create match with each uid
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) => LiveTourneyScreen(
-                        PlayersUID: selectedPlayersUID,
-                        NumberOfPlayers: pvts,
-                        NumberOfCourts: cA,
-                      )),
+              MaterialPageRoute(builder: (context) => LiveTourneyScreen()),
             );
           }
         },
