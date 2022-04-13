@@ -24,6 +24,11 @@ class LiveTourneyScreen extends StatelessWidget {
           },
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Text('Live Tournament Loading'));
+        body: Column(
+          children: [
+            CircularProgressIndicator(),
+            Text('Live Tournament Loading'),
+          ],
+        ));
   }
 }
