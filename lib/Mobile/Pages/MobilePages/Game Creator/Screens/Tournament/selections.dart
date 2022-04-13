@@ -56,11 +56,11 @@ class _TournamentSelectionEntriesState
             if (currentStep != 2) {
               setState(() => currentStep++);
             } else if (currentStep == 2) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const LiveTourneyScreen()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => const LiveTourneyScreen()),
+              // );
             }
           },
           onStepCancel: () {

@@ -1,12 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
-import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
-import 'package:racquet_v1/Mobile/Logic/Firebase/clubmodel.dart';
-import 'package:racquet_v1/Mobile/Logic/Firebase/usermodel.dart';
-import 'package:racquet_v1/Mobile/Logic/providers/clubProvider.dart';
-import 'package:gato/gato.dart' as gato;
-import '../../../../../Logic/Utilities/snackbar.dart';
+import 'package:flutter/services.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'liveTournament.dart';
 
 class HorizontalSelectionsForTournament extends StatefulWidget {
@@ -20,7 +15,8 @@ class HorizontalSelectionsForTournament extends StatefulWidget {
 class _HorizontalSelectionsForTournamentState
     extends State<HorizontalSelectionsForTournament> {
   int currentStep = 0;
-  double _participatesValue = 20;
+  double _participatesValue = 4;
+  double _courtsAv = 1;
   Map<int, bool> selectedFlag = {};
   List<String> selectedPlayersUID = <String>[];
   bool isSelectionMode = true;
@@ -31,10 +27,82 @@ class _HorizontalSelectionsForTournamentState
   var clubDB = {};
   var clubDatabase = {};
 
+  final TextEditingController _tNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tNameController.dispose();
+    _passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     int pvts = _participatesValue.toInt();
+    int cA = _courtsAv.toInt();
+
+    final tName = TextFormField(
+      autofocus: false,
+      controller: _tNameController,
+      onSaved: (value) {
+        _tNameController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: Icon(LineAwesomeIcons.trophy),
+        contentPadding: EdgeInsets.all(10),
+        hintText: "Name of Tournament",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
+    final passwordInput = TextFormField(
+      autofocus: false,
+      controller: _passwordController,
+      obscureText: false,
+      //validator
+      validator: (value) {
+        RegExp regex = new RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return ("Password cannot be blank.");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Please enter a valid password");
+        }
+      },
+      onSaved: (value) {
+        _passwordController.text = value!;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.lock),
+        contentPadding: EdgeInsets.all(10),
+        hintText: "Password",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
     return Scaffold(
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(40),
+          child: Theme(
+            data: ThemeData.dark(),
+            child: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
+              title: Center(
+                child: Text(
+                  'Tournament Creator',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              elevation: 0,
+            ),
+          )),
       body: Stepper(
         type: StepperType.horizontal,
         currentStep: currentStep,
@@ -42,49 +110,25 @@ class _HorizontalSelectionsForTournamentState
           setState(() => currentStep = index);
         },
         onStepContinue: () {
-          if (currentStep == 1) {
-            if (_participatesValue.toInt() < selectedPlayersUID.length) {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text("My title"),
-                    content: Text("This is my message."),
-                    actions: [
-                      TextButton(
-                        child: Text("OK"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            } else {
-              AlertDialog(
-                title: Text("My title"),
-                content: Text("This is my message."),
-                actions: [
-                  TextButton(
-                    child: Text("OK"),
-                    onPressed: () {},
-                  ),
-                ],
-              );
-            }
-          }
-
           if (currentStep != 2) {
             setState(() => currentStep++);
             print(' yes current step' + currentStep.toString());
             print(' yes pv:' + _participatesValue.toString());
             print(' yes uid' + selectedPlayersUID.length.toString());
           } else if (currentStep == 2) {
-            Navigator.push(
+            FirebaseFirestore.instance.collection('tournaments').add({
+              'listofplayersuid': selectedPlayersUID,
+              'Date Created': DateTime.now(),
+              'completed?': false,
+              'courts': _courtsAv.toInt(),
+              'numofplayers': _participatesValue.toInt(),
+              'name': _tNameController.text,
+              'password': _passwordController.text,
+            });
+            //split listofplayersuid create map. create match with each uid
+            Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const LiveTourneyScreen()),
+              MaterialPageRoute(builder: (context) => LiveTourneyScreen()),
             );
           }
         },
@@ -101,16 +145,43 @@ class _HorizontalSelectionsForTournamentState
             isActive: currentStep >= 0,
             content: Column(
               children: [
+                SizedBox(
+                  height: 10,
+                ),
+                tName,
+                SizedBox(
+                  height: 20,
+                ),
+                passwordInput,
+                SizedBox(
+                  height: 20,
+                ),
                 Text('Choose how many players will be participating:'),
                 Slider(
                   min: 4,
                   max: 24,
                   value: _participatesValue,
-                  divisions: 20,
+                  divisions: 5,
                   label: '${_participatesValue.round()}',
                   onChanged: (value) {
                     setState(() {
                       _participatesValue = value;
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text('How many courts available to play on?'),
+                Slider(
+                  min: 1,
+                  max: 10,
+                  value: _courtsAv,
+                  divisions: 10,
+                  label: '${_courtsAv.round()}',
+                  onChanged: (value) {
+                    setState(() {
+                      _courtsAv = value;
                     });
                   },
                 ),
@@ -193,8 +264,6 @@ class _HorizontalSelectionsForTournamentState
               },
             ),
           ),
-
-          // Step(
           Step(
             title: Text(
               'Review',
@@ -203,6 +272,7 @@ class _HorizontalSelectionsForTournamentState
             content: Column(
               children: [
                 Text("Number of Participants: $pvts"),
+                Text("Number of Courts: $cA"),
                 StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('users')
@@ -222,15 +292,6 @@ class _HorizontalSelectionsForTournamentState
                         shrinkWrap: true,
                         itemCount: selectedPlayersUID.length,
                         itemBuilder: (ctx, index) {
-                          // var map =
-                          //     lookUpPlayer(index, selectedPlayersUID[index]);
-                          // var maps = FirebaseFirestore.instance
-                          //     .collection("users")
-                          //     .doc(selectedPlayersUID[index])
-                          //     .get();
-
-                          // var snap = UserModel.fromSnap(maps);
-
                           return StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection("users")
@@ -351,39 +412,3 @@ class _HorizontalSelectionsForTournamentState
     }
   }
 }
-
-//   Future<String> getClubDoc(int ClubPlayerID) async {
-//     setState(() {
-//       isLoading = true;
-//     });
-//     try {
-//       var clubIDFromDatabase = await FirebaseFirestore.instance
-//           .collection("clubs")
-//           .where("Club ID", isEqualTo: ClubPlayerID)
-//           .get()
-//           .then((querySnapshot) {
-//         querySnapshot.docs.forEach((result) {
-//           clubDB = result.data();
-//           print(result.data());
-//         });
-//       });
-
-//       var clubData = await FirebaseFirestore.instance
-//           .collection("clubs")
-//           .doc(clubDB['uid'])
-//           .get();
-
-//       print(clubDB);
-//       clubDatabase = clubData.data()!;
-//       print(clubDatabase);
-//       return clubDatabase['Club Abr'];
-//     } catch (err) {
-//       showSnackBar(err.toString(), context);
-//       setState(() {
-//         isLoading = false;
-//       });
-//       return err.toString();
-//     }
-//   }
-// }
-

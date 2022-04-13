@@ -9,6 +9,7 @@ import 'package:racquet_v1/Mobile/DisplayClubConfirmiation.dart';
 import 'package:racquet_v1/Mobile/LogInScreen.dart';
 import 'package:racquet_v1/Mobile/Logic/providers/userProvider.dart';
 import 'package:racquet_v1/Mobile/LookUpClub.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/Widgets/listofcurrenttournaments.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/horizontalSelections.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/selections.dart';
 import 'package:racquet_v1/TabletApp/tabWelcome.dart';
@@ -59,8 +60,8 @@ class MainPage extends StatelessWidget {
               theme: AppColours.lightTheme,
               darkTheme: AppColours.darkTheme,
               home: ResponsiveLayout(
-                  // mobileHome: HorizontalSelectionsForTournament(),
-                  mobileHome: LoginScreen(),
+                  mobileHome: ListOfCurrentTournaments(),
+                  // mobileHome: LoginScreen(),
                   tabletHome: tabletWelcome(),
                   webHome: WebWelcome()),
             ),

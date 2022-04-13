@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/Screens/nextFixtures.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/Widgets/listofcurrenttournaments.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/liveTournament.dart';
 import 'package:relative_scale/relative_scale.dart';
 
@@ -17,7 +18,7 @@ class ResumeTourneyButton extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const LiveTourneyScreen()),
+                  builder: (context) => const ListOfCurrentTournaments()),
             );
           }),
           child: Padding(
