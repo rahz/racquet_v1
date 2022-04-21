@@ -4,30 +4,16 @@ import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.dark;
-
   bool get isDarkMode => themeMode == ThemeMode.dark;
-
   toggleTheme(bool isOn) {
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
-
-  // set isDarkMode(bool value) {
-  //   isDarkMode = value;
-  //   toggleTheme(value);
-  //   notifyListeners();
-  // }
 }
 
 class AppColours {
-  // static Color blueBackground = const Color(0xFF080321);
-
-  // static Color secondAccent = const Color(0xFF2b3369);
-  // static Color bodyTextColor = const Color(0xFFFFFFFF);
-  // static Color navButton = const Color(0xFF001086);
-
   static final darkTheme = ThemeData(
-      backgroundColor: Colors.amber[700], // accent colour
+      backgroundColor: Color.fromARGB(255, 255, 162, 0), // accent colour
       scaffoldBackgroundColor: Color(0xFF080321), // background colour
       colorScheme: ColorScheme.dark(),
       primaryColor: Color.fromARGB(255, 69, 35, 124), //widget colour

@@ -55,13 +55,13 @@ class MainPage extends StatelessWidget {
             ],
             child: GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Racquet',
+              title: 'RacQuet',
               themeMode: themeProvider.themeMode,
               theme: AppColours.lightTheme,
               darkTheme: AppColours.darkTheme,
               home: ResponsiveLayout(
-                  mobileHome: ListOfCurrentTournaments(),
-                  // mobileHome: LoginScreen(),
+                  // mobileHome: ListOfCurrentTournaments(),
+                  mobileHome: LoginScreen(),
                   tabletHome: tabletWelcome(),
                   webHome: WebWelcome()),
             ),

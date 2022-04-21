@@ -101,80 +101,88 @@ class ListOfCurrentTournaments extends StatelessWidget {
                                 SizedBox(
                                     width: 500,
                                     height: 200,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        shrinkWrap: true,
-                                        itemCount: num,
-                                        itemBuilder: ((ctx, index) {
-                                          return StreamBuilder(
-                                              stream: FirebaseFirestore.instance
-                                                  .collection('users')
-                                                  .doc(tournament_db[
-                                                          'listofplayersuid']
-                                                      [index])
-                                                  .snapshots(),
-                                              builder: (BuildContext context,
-                                                  AsyncSnapshot<
-                                                          DocumentSnapshot>
-                                                      snapshot2) {
-                                                if (!snapshot2.hasData) {
-                                                  return CircularProgressIndicator();
-                                                } else {
-                                                  return StreamBuilder(
-                                                      stream: FirebaseFirestore
-                                                          .instance
-                                                          .collection('clubs')
-                                                          .doc(snapshot2.data![
-                                                              'Club UID'])
-                                                          .snapshots(),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<
-                                                                  DocumentSnapshot>
-                                                              club) {
-                                                        if (!club.hasData) {
-                                                          return CircularProgressIndicator();
-                                                        } else {
-                                                          return Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Card(
-                                                                  margin: EdgeInsets.symmetric(
-                                                                      vertical:
-                                                                          15),
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .backgroundColor
-                                                                      .withOpacity(
-                                                                          0.7),
-                                                                  child: Center(
-                                                                      child: Padding(
-                                                                          padding: const EdgeInsets.all(4.0),
-                                                                          child: Column(
-                                                                            children: [
-                                                                              CircleAvatar(
-                                                                                backgroundImage: NetworkImage(snapshot2.data!['ppURL']),
-                                                                                radius: 40,
-                                                                              ),
-                                                                              SizedBox(
-                                                                                height: 20,
-                                                                              ),
-                                                                              Row(
-                                                                                children: [
-                                                                                  Text(snapshot2.data!['forename']),
-                                                                                  Text(' '),
-                                                                                  Text(snapshot2.data!['surname'])
-                                                                                ],
-                                                                              ),
-                                                                              Text(club.data!['Club Abr']),
-                                                                            ],
-                                                                          )))));
-                                                        }
-                                                      });
-                                                }
-                                              });
-                                        })))
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount: num,
+                                          itemBuilder: ((ctx, index) {
+                                            return StreamBuilder(
+                                                stream: FirebaseFirestore
+                                                    .instance
+                                                    .collection('users')
+                                                    .doc(tournament_db[
+                                                            'listofplayersuid']
+                                                        [index])
+                                                    .snapshots(),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<
+                                                            DocumentSnapshot>
+                                                        snapshot2) {
+                                                  if (!snapshot2.hasData) {
+                                                    return CircularProgressIndicator();
+                                                  } else {
+                                                    return StreamBuilder(
+                                                        stream:
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'clubs')
+                                                                .doc(snapshot2
+                                                                        .data![
+                                                                    'Club UID'])
+                                                                .snapshots(),
+                                                        builder: (BuildContext
+                                                                context,
+                                                            AsyncSnapshot<
+                                                                    DocumentSnapshot>
+                                                                club) {
+                                                          if (!club.hasData) {
+                                                            return CircularProgressIndicator();
+                                                          } else {
+                                                            return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Card(
+                                                                    margin: EdgeInsets.symmetric(
+                                                                        vertical:
+                                                                            15),
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .backgroundColor
+                                                                        .withOpacity(
+                                                                            0.7),
+                                                                    child: Center(
+                                                                        child: Padding(
+                                                                            padding: const EdgeInsets.all(4.0),
+                                                                            child: Column(
+                                                                              children: [
+                                                                                CircleAvatar(
+                                                                                  backgroundImage: NetworkImage(snapshot2.data!['ppURL']),
+                                                                                  radius: 40,
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 20,
+                                                                                ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text(snapshot2.data!['forename']),
+                                                                                    Text(' '),
+                                                                                    Text(snapshot2.data!['surname'])
+                                                                                  ],
+                                                                                ),
+                                                                                Text(club.data!['Club Abr']),
+                                                                              ],
+                                                                            )))));
+                                                          }
+                                                        });
+                                                  }
+                                                });
+                                          })),
+                                    ))
                               ]));
                     });
               })

@@ -352,9 +352,7 @@ class _HorizontalSelectionsForTournamentState
     }
 
     if (isSelected) {
-      print('TRUE');
       selectedPlayersUID.remove(snap["uid"]);
-      // selectedPlayersUID.remove(snap.toString());
     } else {
       if (selectedPlayersUID.length < _participatesValue) {
         print('FALSE');
@@ -362,10 +360,8 @@ class _HorizontalSelectionsForTournamentState
         setState(() {
           isFull = true;
         });
-        // selectedPlayersUID.add(snap.toString());
       }
     }
-    // _PlayersSelected.addAll(snap);
 
     print(snap['forename']);
   }

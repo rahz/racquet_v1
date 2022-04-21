@@ -8,6 +8,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:racquet_v1/Mobile/LogInScreen.dart';
 import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Referee%20Assistant/input.dart';
 import 'Logic/Firebase/usermodel.dart';
 import 'Logic/Utilities/snackbar.dart';
 import 'Logic/providers/userProvider.dart';
@@ -28,7 +29,7 @@ class _MobileAppStateful extends State<MobileAppStateful>
     with SingleTickerProviderStateMixin {
   late TabController _screenSwitcher;
   int navIndex = 2;
-  String appBarTitle = 'demo';
+  String appBarTitle = ' ';
   bool isLoading = false;
   dynamic userData;
 
@@ -85,7 +86,7 @@ class _MobileAppStateful extends State<MobileAppStateful>
       appBarTitle = 'Settings';
     }
     final screens = [
-      MobileRef(),
+      RegScreenInput(),
       MobileGameBuilder(),
       MobileDashboard(),
       MobilePlayerAssistant(),
@@ -163,7 +164,6 @@ class _MobileAppStateful extends State<MobileAppStateful>
                     Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
                 title: Text(
                   appBarTitle,
-                  //textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -179,11 +179,7 @@ class _MobileAppStateful extends State<MobileAppStateful>
               ),
               child: CurvedNavigationBar(
                 color: Theme.of(context).primaryColor,
-                buttonBackgroundColor: Theme.of(context)
-                    .primaryColor
-                    .withOpacity(0.4)
-                    .withAlpha(200)
-                    .withBlue(255),
+                buttonBackgroundColor: Theme.of(context).backgroundColor,
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 height: 60,
                 animationCurve: Curves.easeInOutCubic,
