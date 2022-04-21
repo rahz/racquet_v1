@@ -67,6 +67,8 @@ class _MobileRefState extends State<MobileRef> {
           .get();
       p1data = p1dataraw.data()!;
       p2data = p2dataraw.data()!;
+      print(p1data);
+      print(p2data);
     } catch (err) {
       showSnackBar(err.toString(), context);
     }
@@ -79,10 +81,15 @@ class _MobileRefState extends State<MobileRef> {
   Widget build(BuildContext context) {
     var _p1;
     var _p2;
-    int inc1 = matchDB['player1score1'] + 1;
-    int inc2 = matchDB['player2score1'] + 1;
-    int incace1 = p1data['aces'] + 1;
-    int incace2 = p2data['aces'] + 1;
+
+    var inc1 = matchDB['player1score1'];
+    var inc2 = matchDB['player2score1'];
+    var incace1 = p1data['aces'];
+    var inctp1 = p1data['Total Points Won'];
+    var inctl1 = p1data['Total Points Lost'];
+    var incace2 = p2data['aces'];
+    var inctp2 = p2data['Total Points Won'];
+    var inctl2 = p2data['Total Points Lost'];
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(
@@ -286,7 +293,19 @@ class _MobileRefState extends State<MobileRef> {
                       FirebaseFirestore.instance
                           .collection('matches')
                           .doc('WPkfyp1P8B8fxcihzBvc')
-                          .update({'player1score1': inc1});
+                          .update({'player1score1': inc1 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player1uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player1uid'])
+                          .update({'Total Points Won': inctp1 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player2uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player2uid'])
+                          .update({'Total Points Lost': inctl2 + 1});
                       getMDoc();
                     }),
                     child: Padding(
@@ -325,7 +344,19 @@ class _MobileRefState extends State<MobileRef> {
                       FirebaseFirestore.instance
                           .collection('matches')
                           .doc('WPkfyp1P8B8fxcihzBvc')
-                          .update({'player2score1': inc2});
+                          .update({'player2score1': inc2 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player2uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player2uid'])
+                          .update({'Total Points Won': inctp2 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player1uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player1uid'])
+                          .update({'Total Points Lost': inctl1 + 1});
                       getMDoc();
                     }),
                     child: Padding(
@@ -373,13 +404,25 @@ class _MobileRefState extends State<MobileRef> {
                       FirebaseFirestore.instance
                           .collection('matches')
                           .doc('WPkfyp1P8B8fxcihzBvc')
-                          .update({'player1score1': inc1});
+                          .update({'player1score1': inc1 + 1});
                       FirebaseFirestore.instance
                           .collection('users')
                           .doc(matchDB['player1uid'])
                           .collection('statistics')
                           .doc(matchDB['player1uid'])
-                          .set({'aces': incace1});
+                          .set({'aces': incace1 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player1uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player1uid'])
+                          .update({'Total Points Won': inctp1 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player2uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player2uid'])
+                          .update({'Total Points Lost': inctl2 + 1});
                       getMDoc();
                     }),
                     child: Padding(
@@ -418,15 +461,25 @@ class _MobileRefState extends State<MobileRef> {
                       FirebaseFirestore.instance
                           .collection('matches')
                           .doc('WPkfyp1P8B8fxcihzBvc')
-                          .update({'player2score1': inc2});
+                          .update({'player2score1': inc2 + 1});
                       FirebaseFirestore.instance
                           .collection('users')
                           .doc(matchDB['player2uid'])
                           .collection('statistics')
                           .doc(matchDB['player2uid'])
-                          .update(
-                        {'aces': incace2},
-                      );
+                          .update({'aces': incace2 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player2uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player2uid'])
+                          .update({'Total Points Won': inctp2 + 1});
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(matchDB['player1uid'])
+                          .collection('statistics')
+                          .doc(matchDB['player1uid'])
+                          .update({'Total Points Lost': inctl1 + 1});
                       getMDoc();
                     }),
                     child: Padding(
