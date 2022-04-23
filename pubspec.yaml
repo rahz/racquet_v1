@@ -50,6 +50,9 @@ dependencies:
   rxdart: ^0.27.3
   gato: ^0.0.5
   intl: ^0.17.0
+  firebase_crashlytics: "^2.6.3"
+  firebase_performance: ^0.8.0+10
+  
   get:
 
 dev_dependencies:

@@ -47,8 +47,12 @@ class _MobileAppStateful extends State<MobileAppStateful>
     try {
       var userSnap = await FirebaseFirestore.instance
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc('z8AlIOWWvSUM7HpRpMSJmcxAZJN2')
           .get();
+      // var userSnap = await FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(FirebaseAuth.instance.currentUser!.uid)
+      //     .get();
 
       userData = userSnap.data()!;
 
