@@ -13,7 +13,7 @@ import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tourn
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/horizontalSelections.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Game%20Creator/Screens/Tournament/selections.dart';
 import 'package:racquet_v1/TabletApp/tabWelcome.dart';
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:racquet_v1/WebApp/webWelcome.dart';
 import 'package:racquet_v1/responsive_layout.dart';
 
@@ -55,13 +55,13 @@ class MainPage extends StatelessWidget {
             ],
             child: GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Racquet',
+              title: 'RacQuet',
               themeMode: themeProvider.themeMode,
               theme: AppColours.lightTheme,
               darkTheme: AppColours.darkTheme,
               home: ResponsiveLayout(
-                  mobileHome: ListOfCurrentTournaments(),
-                  // mobileHome: LoginScreen(),
+                  // mobileHome: HorizontalSelectionsForTournament(),
+                  mobileHome: LoginScreen(),
                   tabletHome: tabletWelcome(),
                   webHome: WebWelcome()),
             ),

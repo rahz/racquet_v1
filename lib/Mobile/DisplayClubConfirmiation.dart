@@ -117,7 +117,7 @@ class _ClubConfirmScreenState extends State<ClubConfirmScreen> {
                       style: TextStyle(fontSize: 24),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
