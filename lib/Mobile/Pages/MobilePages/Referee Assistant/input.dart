@@ -7,7 +7,7 @@ import 'package:racquet_v1/Mobile/Logic/Firebase/authoriser.dart';
 import 'package:racquet_v1/Mobile/Logic/Utilities/snackbar.dart';
 import 'package:racquet_v1/Mobile/LookUpClub.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Dashboard/mDashboard.dart';
-import 'package:racquet_v1/Mobile/Pages/MobilePages/Referee%20Assistant/mRef.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Referee%20Assistant/LiveMatch.dart';
 import 'package:racquet_v1/Mobile/Pages/MobilePages/Settings/Widgets.dart';
 import 'package:racquet_v1/Mobile/RegScreen.dart';
 import 'package:racquet_v1/Mobile/mobileMainv2.dart';
@@ -137,8 +137,6 @@ class _LoginScreenState extends State<RegScreenInput> {
           ),
         )),
       ),
-      floatingActionButton: LoginScreenThemeSwitch(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );
   }
 }

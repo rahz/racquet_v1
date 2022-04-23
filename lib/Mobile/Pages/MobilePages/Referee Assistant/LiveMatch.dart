@@ -41,14 +41,13 @@ class _MobileRefState extends State<MobileRef> {
       isLoading = true;
     });
     try {
-      var clubIDFromDatabase = await FirebaseFirestore.instance
+      var matchIDFromDatabase = await FirebaseFirestore.instance
           .collection("matches")
           .where('matchUID', isEqualTo: widget.matchid)
           .get()
           .then((querySnapshot) {
         querySnapshot.docs.forEach((result) {
           matchDB = result.data();
-          print(result.data());
         });
       });
 
@@ -67,8 +66,8 @@ class _MobileRefState extends State<MobileRef> {
           .get();
       p1data = p1dataraw.data()!;
       p2data = p2dataraw.data()!;
-      print(p1data);
-      print(p2data);
+      // print(p1data);
+      // print(p2data);
     } catch (err) {
       showSnackBar(err.toString(), context);
     }
@@ -91,15 +90,28 @@ class _MobileRefState extends State<MobileRef> {
     var inctp2 = p2data['Total Points Won'];
     var inctl2 = p2data['Total Points Lost'];
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.arrow_back,
-          color: Theme.of(context).backgroundColor,
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () {
-          Navigator.pop(context);
+      floatingActionButton: GestureDetector(
+        onLongPress: () {
+          FirebaseFirestore.instance
+              .collection('matches')
+              .doc('WPkfyp1P8B8fxcihzBvc')
+              .update({'player2score1': 0});
+          FirebaseFirestore.instance
+              .collection('matches')
+              .doc('WPkfyp1P8B8fxcihzBvc')
+              .update({'player1score1': 0});
+          getMDoc();
         },
+        child: FloatingActionButton(
+          child: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).backgroundColor,
+          ),
+          backgroundColor: Theme.of(context).primaryColor,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Center(
         child: GestureDetector(

@@ -16,27 +16,27 @@ class MobilePlayerAssistant extends StatelessWidget {
         body: ListView(
           children: [
             SizedBox(height: 10),
-            Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TourneyWinsButton(),
-                  SizedBox(width: 13),
-                  ClubRankingButton(),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CurrentFormBox(),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       TourneyWinsButton(),
+            //       SizedBox(width: 13),
+            //       ClubRankingButton(),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(height: 10),
+            // Padding(
+            //   padding: const EdgeInsets.all(5),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       CurrentFormBox(),
+            //     ],
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.all(5),
               child: Row(

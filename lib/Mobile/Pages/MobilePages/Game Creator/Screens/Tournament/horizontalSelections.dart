@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:racquet_v1/Mobile/Pages/MobilePages/Referee%20Assistant/LiveMatch.dart';
 import 'liveTournament.dart';
 
 class HorizontalSelectionsForTournament extends StatefulWidget {
@@ -128,7 +129,10 @@ class _HorizontalSelectionsForTournamentState
             //split listofplayersuid create map. create match with each uid
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => LiveTourneyScreen()),
+              MaterialPageRoute(
+                  builder: (context) => MobileRef(
+                        matchid: 'UDz8wN2022',
+                      )),
             );
           }
         },

@@ -66,7 +66,7 @@ class PlayerPerformanceBox extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        "20",
+                                        "--",
                                         style: TextStyle(fontSize: 28),
                                       )
                                     ],
@@ -92,7 +92,7 @@ class PlayerPerformanceBox extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      "281",
+                                      "--",
                                       style: TextStyle(fontSize: 28),
                                     ),
                                   ],
@@ -108,7 +108,7 @@ class PlayerPerformanceBox extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        "140",
+                                        "--",
                                         style: TextStyle(fontSize: 28),
                                       ),
                                     ],
