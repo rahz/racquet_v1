@@ -170,6 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+          
                       Container(
                         child: Text("use your club information to "),
                         padding: EdgeInsets.symmetric(vertical: 8),

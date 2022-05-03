@@ -10,16 +10,10 @@ Artificial Intelligence used to analyse player performance based on inputted dat
 
 Referee assistant to help aid on-court scoring
 
-View information about a club and their venue, as well as, their success in tournaments and leagues.
+View information about a club and their venue, as well as, their success in tournaments.
 
 ## Setting up an account
 
-Note: You can only set up an account with your club president.
+Press the sign-up button after the launch, search for your club by inputting the Club ID and password and then input all the required fields of your personal information. Once completed, you will be registered into the database and navigated into the dashboard screen.
 
-Once you have created an account with your club president, enter the email you registered with and the temporary password.
-
-You will be presented with a new screen to change your temporary password.
-
-Once complete, you will have full access to the system.
-
-Welcome to Racquet.
+Welcome to RacQuet!
