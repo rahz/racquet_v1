@@ -105,7 +105,7 @@ class PlayerStatisticsBox extends StatelessWidget {
                                                           'Total Points Won']) /
                                                       (snapshot3.data![
                                                           'Total Points Lost']))
-                                                  .toString(),
+                                                  .toStringAsFixed((2)),
                                               style: TextStyle(fontSize: 28),
                                             )
                                           ],
